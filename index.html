@@ -1,365 +1,194 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Manpower Assignment</title>
+<meta charset="utf-8">
+<title>CP Manpower Assignment</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Tailwind -->
-<script src="https://cdn.tailwindcss.com"></script>
-<!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<!-- SheetJS for import/export -->
-<script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+<!-- Bootstrap -->
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
 
-<style>
-  :root{--indigo:#4f46e5;--orange:#fb923c;}
-  body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;}
-  .card{background:#fff;border-radius:12px;box-shadow:0 6px 18px rgba(20,20,50,0.04);}
-  .tab-active{border-b-4 solid; border-color:var(--orange); color:var(--indigo); font-weight:600;}
-  .table-scroll{max-height:320px; overflow:auto;}
-  input,select,textarea{outline:none;}
-</style>
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
+
 </head>
-<body class="bg-gray-50 text-sm text-gray-800">
+<body class="bg-indigo-900 text-white">
 
-<div class="max-w-[1400px] mx-auto p-4">
+<header class="p-3 mb-4 border-bottom">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    <h1 class="h4 mb-0"><i class="fa-solid fa-users"></i> CP Manpower Assignment</h1>
+    <nav>
+      <a href="#projects" class="btn btn-orange mx-2">Projects</a>
+      <a href="#manpower" class="btn btn-orange mx-2">Manpower</a>
+      <a href="#dashboard" class="btn btn-orange mx-2">Dashboard</a>
+    </nav>
+  </div>
+</header>
 
-  <!-- Header -->
-  <header class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-4">
-    <div class="flex items-center gap-3">
-      <img src="https://lh3.googleusercontent.com/d/1oQr4RoR9ON5vK6U_oIN2hW0HdnpEloO8" alt="logo" class="h-10 w-10 object-contain">
-      <div>
-        <h1 class="text-xl font-bold text-indigo-700">Manpower Assignment</h1>
-        <p class="text-xs text-gray-500">Kanooz Industrial Services — Central Planning</p>
-      </div>
+<main class="container-fluid">
+
+<!-- 1️⃣ Project Management -->
+<section id="projects">
+  <h2><i class="fa-solid fa-project-diagram"></i> Projects</h2>
+  <div id="project-list" class="row g-3"></div>
+
+  <!-- Add / Edit Modal -->
+  <div class="modal fade" id="projectModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+      <form id="projectForm" autocomplete="off">
+        <div class="modal-content bg-indigo-800 text-white">
+          <div class="modal-header">
+            <h5 class="modal-title"><i class="fa-solid fa-plus"></i> Add / Edit Project</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+
+          <!-- Modal body with all fields -->
+          <div class="modal-body">
+            <input type="hidden" name="id">
+            <div class="row g-3">
+
+              <div class="col-md-6"><label for="projName" class="form-label">Project Name</label>
+                <input id="projName" name="name" type="text" class="form-control bg-indigo-700" required></div>
+
+              <div class="col-md-3"><label for="startDate" class="form-label">Start Date</label>
+                <input id="startDate" name="start" type="date" class="form-control bg-indigo-700" required></div>
+
+              <div class="col-md-3"><label for="endDate" class="form-label">End Date</label>
+                <input id="endDate" name="end" type="date" class="form-control bg-indigo-700" required></div>
+
+            </div>
+
+            <!-- Workforce requirements table -->
+            <h5 class="mt-4"><i class="fa-solid fa-users"></i> Craft Requirements</h5>
+            <table id="craftReqTable" class="table table-sm table-borderless text-white">
+              <thead><tr><th>Craft</th><th>Pre‑Manpower (Qty)</th><th>Post‑Manpower (Qty)</th></tr></thead>
+              <tbody></tbody>
+            </table>
+            <button type="button" class="btn btn-orange mt-2" id="addCraftRow"><i class="fa-solid fa-plus"></i> Add Craft</button>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-indigo"><i class="fa-solid fa-save"></i> Save Project</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </form>
     </div>
-  </header>
+  </div>
 
-  <!-- Top Tabs -->
-  <nav class="flex gap-4 mb-4 border-b pb-3 overflow-x-auto">
-    <button class="tab-btn tab-active" data-tab="dashboard">Dashboard</button>
-    <button class="tab-btn" data-tab="manpower">Manpower</button>
-    <button class="tab-btn" data-tab="projects">Projects</button>
-    <button class="tab-btn" data-tab="ai">AI Scheduler</button>
-    <button class="tab-btn" data-tab="reports">Reports & Export</button>
-    <button class="tab-btn" data-tab="shortage">Shortage</button>
-  </nav>
+  <!-- Export Button -->
+  <div class="mt-3">
+    <button id="exportProjects" class="btn btn-orange"><i class="fa-solid fa-file-excel"></i> Export Projects to Excel</button>
+  </div>
+</section>
 
-  <!-- Tab Contents -->
-  <main id="tab-contents">
+<hr class="border-secondary">
 
-    <!-- Dashboard -->
-    <section id="dashboard" class="tab-content">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-        <div class="card p-4 text-center">
-          <div class="text-xs text-gray-500">Total Manpower</div>
-          <div id="totalManpower" class="text-2xl font-bold text-indigo-600">0</div>
-        </div>
-        <div class="card p-4 text-center">
-          <div class="text-xs text-gray-500">Total Projects</div>
-          <div id="totalProjects" class="text-2xl font-bold text-orange-500">0</div>
-        </div>
-        <div class="card p-4 text-center">
-          <div class="text-xs text-gray-500">Peak Requirement (sum)</div>
-          <div id="totalPeak" class="text-2xl font-bold text-green-600">0</div>
-        </div>
-      </div>
+<!-- 2️⃣ Manpower Data Management -->
+<section id="manpower">
+  <h2><i class="fa-solid fa-people-roof"></i> Manpower List</h2>
+  <div id="manpower-list" class="row g-3"></div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="card p-4">
-          <h3 class="font-medium mb-2">Craft-wise Manpower</h3>
-          <canvas id="craftChart" class="w-full h-44"></canvas>
-        </div>
-        <div class="card p-4">
-          <h3 class="font-medium mb-2">Peak Manpower per Project</h3>
-          <canvas id="projectPeakChart" class="w-full h-44"></canvas>
-        </div>
-        <div class="card p-4">
-          <h3 class="font-medium mb-2">Project Durations (days)</h3>
-          <canvas id="projectDurationChart" class="w-full h-44"></canvas>
-        </div>
-      </div>
-    </section>
-
-    <!-- Manpower -->
-    <section id="manpower" class="tab-content hidden mt-2">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-
-        <!-- Import -->
-        <div class="card p-4">
-          <h3 class="font-semibold mb-2">Import Manpower (Excel / CSV)</h3>
-          <input type="file" id="mpImportFile" accept=".xlsx,.xls,.csv" class="mb-2"/>
-          <div class="flex gap-2">
-            <button id="mpImportBtn" class="px-3 py-2 rounded bg-indigo-600 text-white">Import</button>
-            <button id="mpClearBtn" class="px-3 py-2 rounded bg-red-50 text-red-600 border">Clear all</button>
+  <!-- Add / Edit Modal -->
+  <div class="modal fade" id="empModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <form id="empForm" autocomplete="off">
+        <div class="modal-content bg-indigo-800 text-white">
+          <div class="modal-header">
+            <h5 class="modal-title"><i class="fa-solid fa-user-plus"></i> Add / Edit Employee</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
           </div>
-          <p class="text-xs text-gray-500 mt-2">Required columns (headers): name, craft, badge, company, join, release, vacationStart (optional), vacationEnd (optional)</p>
-        </div>
 
-        <!-- Add single -->
-        <div class="card p-4">
-          <h3 class="font-semibold mb-2">Add Manpower</h3>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-2 mb-2">
-            <input id="mpName" placeholder="Name" class="p-2 border rounded"/>
-            <input id="mpCraft" placeholder="Craft" class="p-2 border rounded"/>
-            <input id="mpBadge" placeholder="Badge" class="p-2 border rounded"/>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-2 mb-2">
-            <select id="mpCompany" class="p-2 border rounded">
-              <option>In-house</option><option>Qiwa</option><option>Local Hire</option>
-            </select>
-            <input id="mpJoin" type="date" class="p-2 border rounded"/>
-            <input id="mpRelease" type="date" class="p-2 border rounded"/>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
-            <input id="mpVacationStart" type="date" class="p-2 border rounded" placeholder="Vacation Start"/>
-            <input id="mpVacationEnd" type="date" class="p-2 border rounded" placeholder="Vacation End"/>
-          </div>
-          <div class="text-right">
-            <button id="addMpBtn" class="px-3 py-2 rounded bg-orange-500 text-white">Add Manpower</button>
-          </div>
-        </div>
+          <!-- Modal body -->
+          <div class="modal-body">
+            <input type="hidden" name="id">
+            <div class="row g-3">
 
-      </div>
+              <div class="col-md-4"><label for="badgeNo" class="form-label">Badge #</label>
+                <input id="badgeNo" name="badge" type="text" class="form-control bg-indigo-700" required></div>
 
-      <div class="card p-4">
-        <h3 class="font-semibold mb-2">Manpower List</h3>
-        <div id="manpowerTable" class="table-scroll"></div>
-      </div>
-    </section>
+              <div class="col-md-4"><label for="empCraft" class="form-label">Craft</label>
+                <select id="empCraft" name="craft" class="form-select bg-indigo-700" required>
+                  <option value="">Select Craft</option>
+                  <!-- Populate via JS -->
+                </select></div>
 
-    <!-- Projects -->
-    <section id="projects" class="tab-content hidden mt-2">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div class="card p-4">
-          <h3 class="font-semibold mb-2">Import Projects (Excel / CSV)</h3>
-          <input type="file" id="projImportFile" accept=".xlsx,.xls,.csv" class="mb-2"/>
-          <div class="flex gap-2">
-            <button id="projImportBtn" class="px-3 py-2 rounded bg-indigo-600 text-white">Import Projects</button>
-            <button id="projClearBtn" class="px-3 py-2 rounded bg-red-50 text-red-600 border">Clear all</button>
-          </div>
-          <p class="text-xs text-gray-500 mt-2">Project sheet columns should include: name, dept, costCenter, start, finish, requirements (optional)</p>
-        </div>
+              <div class="col-md-4"><label for="joinDate" class="form-label">Join Date</label>
+                <input id="joinDate" name="join" type="date" class="form-control bg-indigo-700" required></div>
 
-        <div class="card p-4">
-          <h3 class="font-semibold mb-2">Add Project</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
-            <input id="projName" placeholder="Project Name" class="p-2 border rounded"/>
-            <div class="flex gap-2">
-              <input id="projStart" type="date" class="p-2 border rounded w-full"/>
-              <input id="projFinish" type="date" class="p-2 border rounded w-full"/>
             </div>
-            <input id="projCostCenter" placeholder="Cost Center" class="p-2 border rounded"/>
-            <input id="projDept" placeholder="Department" class="p-2 border rounded"/>
+
+            <div class="row g-3 mt-2">
+
+              <div class="col-md-4"><label for="releaseDate" class="form-label">Release Date</label>
+                <input id="releaseDate" name="release" type="date" class="form-control bg-indigo-700"></div>
+
+              <div class="col-md-4"><label for="deptLogo" class="form-label">Department Logo URL</label>
+                <input id="deptLogo" name="logo" type="url" placeholder="https://..." class="form-control bg-indigo-700"></div>
+
+              <div class="col-md-4"><label for="empType" class="form-label">Employment Type</label>
+                <select id="empType" name="type" class="form-select bg-indigo-700" required>
+                  <option value="">Select Type</option>
+                  <option>In-house</option>
+                  <option>Qiwa</option>
+                  <option>Local Hire</option>
+                </select></div>
+
+            </div>
+
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div class="p-2 border rounded bg-gray-50 space-y-1">
-              <div class="font-medium">Main</div>
-              <input id="reqMainCraft" placeholder="Craft" class="p-2 border rounded w-full"/>
-              <input id="reqMainQty" type="number" min="0" value="0" class="p-2 border rounded w-full"/>
-              <input id="reqMainStart" type="date" class="p-2 border rounded w-full"/>
-              <input id="reqMainFinish" type="date" class="p-2 border rounded w-full"/>
-            </div>
-            <div class="p-2 border rounded bg-gray-50 space-y-1">
-              <div class="font-medium">Pre-TA</div>
-              <input id="reqPreCraft" placeholder="Craft" class="p-2 border rounded w-full"/>
-              <input id="reqPreQty" type="number" min="0" value="0" class="p-2 border rounded w-full"/>
-              <input id="reqPreStart" type="date" class="p-2 border rounded w-full"/>
-              <input id="reqPreFinish" type="date" class="p-2 border rounded w-full"/>
-            </div>
-            <div class="p-2 border rounded bg-gray-50 space-y-1">
-              <div class="font-medium">Post</div>
-              <input id="reqPostCraft" placeholder="Craft" class="p-2 border rounded w-full"/>
-              <input id="reqPostQty" type="number" min="0" value="0" class="p-2 border rounded w-full"/>
-              <input id="reqPostStart" type="date" class="p-2 border rounded w-full"/>
-              <input id="reqPostFinish" type="date" class="p-2 border rounded w-full"/>
-            </div>
-          </div>
-
-          <div class="text-right mt-2">
-            <button id="addProjBtn" class="px-3 py-2 rounded bg-orange-500 text-white">Add Project</button>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-indigo"><i class="fa-solid fa-save"></i> Save Employee</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
           </div>
         </div>
-      </div>
+      </form>
+    </div>
+  </div>
 
-      <div class="card p-4">
-        <h3 class="font-semibold mb-2">Project List</h3>
-        <div id="projectTable" class="table-scroll"></div>
-      </div>
-    </section>
+  <!-- Export Button -->
+  <div class="mt-3">
+    <button id="exportEmployees" class="btn btn-orange"><i class="fa-solid fa-file-excel"></i> Export Employees to Excel</button>
+  </div>
+</section>
 
-    <!-- AI Scheduler -->
-    <section id="ai" class="tab-content hidden mt-2">
-      <div class="card p-4">
-        <h3 class="font-semibold mb-2">AI Scheduler</h3>
-        <p class="text-xs text-gray-500 mb-2">Automatically assign available manpower to projects based on availability, vacation, and requirements.</p>
-        <button id="runScheduler" class="px-3 py-2 rounded bg-indigo-600 text-white">Run Scheduler</button>
-        <div id="aiOutput" class="mt-2 table-scroll"></div>
-      </div>
-    </section>
+<hr class="border-secondary">
 
-    <!-- Reports -->
-    <section id="reports" class="tab-content hidden mt-2">
-      <div class="card p-4">
-        <h3 class="font-semibold mb-2">Reports & Export</h3>
-        <div class="flex gap-2 flex-wrap">
-          <button id="exportManpower" class="px-3 py-2 rounded bg-indigo-600 text-white">Export Manpower</button>
-          <button id="exportProjects" class="px-3 py-2 rounded bg-indigo-600 text-white">Export Projects</button>
-          <button id="exportShortage" class="px-3 py-2 rounded bg-indigo-600 text-white">Export Shortage</button>
-        </div>
-      </div>
-    </section>
+<!-- 3️⃣ Dashboard & Alerts -->
+<section id="dashboard">
+  <h2><i class="fa-solid fa-chart-line"></i> Dashboard & Alerts</h2>
 
-    <!-- Shortage -->
-    <section id="shortage" class="tab-content hidden mt-2">
-      <div class="card p-4">
-        <h3 class="font-semibold mb-2">Manpower Shortage</h3>
-        <div id="shortageTable" class="table-scroll"></div>
-      </div>
-    </section>
+  <!-- Alert area -->
+  <div id="alertArea" class="alert alert-warning d-none mb-4 text-white" role="alert">
+    <span id="alertMsg"></span>
+  </div>
 
-  </main>
-</div>
+  <!-- Charts grid -->
+  <div class="row g-3">
 
-<script>
-  // ---------- Tabs ----------
-  const tabs = document.querySelectorAll('.tab-btn');
-  const contents = document.querySelectorAll('.tab-content');
-  tabs.forEach(tab=>{
-    tab.addEventListener('click',()=> {
-      tabs.forEach(t=>t.classList.remove('tab-active'));
-      tab.classList.add('tab-active');
-      contents.forEach(c=>c.classList.add('hidden'));
-      document.getElementById(tab.dataset.tab).classList.remove('hidden');
-    });
-  });
+    <div class="col-md-6"><canvas id="chartManpowerDist"></canvas></div>
+    <div class="col-md-6"><canvas id="chartProjectAlloc"></canvas></div>
+    <div class="col-md-12"><canvas id="chartShortages"></canvas></div>
 
-  // ---------- Data ----------
-  let manpower=[], projects=[];
+  </div>
+</section>
 
-  // ---------- Render Functions ----------
-  function renderManpower(){
-    let html=`<table class="min-w-full border text-xs"><thead class="bg-gray-100">
-    <tr><th class="border p-1">Name</th><th class="border p-1">Craft</th><th class="border p-1">Badge</th><th class="border p-1">Company</th>
-    <th class="border p-1">Join</th><th class="border p-1">Release</th><th class="border p-1">Vacation Start</th><th class="border p-1">Vacation End</th></tr></thead><tbody>`;
-    manpower.forEach(m=>{
-      html+=`<tr>
-      <td class="border p-1">${m.name}</td><td class="border p-1">${m.craft}</td><td class="border p-1">${m.badge}</td><td class="border p-1">${m.company}</td>
-      <td class="border p-1">${m.join}</td><td class="border p-1">${m.release}</td><td class="border p-1">${m.vacationStart||''}</td><td class="border p-1">${m.vacationEnd||''}</td>
-      </tr>`;
-    });
-    html+='</tbody></table>';
-    document.getElementById('manpowerTable').innerHTML=html;
-    document.getElementById('totalManpower').innerText=manpower.length;
-  }
+</main>
 
-  function renderProjects(){
-    let html=`<table class="min-w-full border text-xs"><thead class="bg-gray-100">
-    <tr><th class="border p-1">Name</th><th class="border p-1">Dept</th><th class="border p-1">Cost Center</th><th class="border p-1">Start</th><th class="border p-1">Finish</th><th class="border p-1">Requirements</th></tr></thead><tbody>`;
-    projects.forEach(p=>{
-      let reqs=p.requirements?JSON.stringify(p.requirements):'';
-      html+=`<tr>
-      <td class="border p-1">${p.name}</td><td class="border p-1">${p.dept}</td><td class="border p-1">${p.costCenter}</td><td class="border p-1">${p.start}</td><td class="border p-1">${p.finish}</td><td class="border p-1">${reqs}</td>
-      </tr>`;
-    });
-    html+='</tbody></table>';
-    document.getElementById('projectTable').innerHTML=html;
-    document.getElementById('totalProjects').innerText=projects.length;
-  }
+<footer class="py-3 text-center border-top">
+  © 2025 CP Manpower Assignment – Powered by GitHub Pages
+</footer>
 
-  function renderShortage(){
-    let html=`<table class="min-w-full border text-xs"><thead class="bg-gray-100">
-    <tr>
-      <th class="border p-1">Project</th><th class="border p-1">Craft</th><th class="border p-1">Available</th><th class="border p-1">Peak Requirement</th>
-      <th class="border p-1">Shortage</th><th class="border p-1">From</th><th class="border p-1">To</th>
-    </tr></thead><tbody>`;
-    
-    projects.forEach(p=>{
-      if(!p.requirements) return;
-      p.requirements.forEach(r=>{
-        let avail = manpower.filter(m=>m.craft===r.craft).length;
-        let shortage = r.qty - avail;
-        if(shortage>0){
-          html+=`<tr>
-          <td class="border p-1">${p.name}</td><td class="border p-1">${r.craft}</td><td class="border p-1">${avail}</td>
-          <td class="border p-1">${r.qty}</td><td class="border p-1">${shortage}</td>
-          <td class="border p-1">${r.start}</td><td class="border p-1">${r.finish}</td>
-          </tr>`;
-        }
-      });
-    });
+<!-- JS Libraries -->
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/dexie.min.js"></script>
+<script src="assets/js/xlsx.full.min.js"></script>
+<script src="assets/js/chart.umd.min.js"></script>
 
-    html+='</tbody></table>';
-    document.getElementById('shortageTable').innerHTML=html;
-  }
-
-  function updateDashboardCharts(){
-    // Craft-wise
-    const craftMap={};
-    manpower.forEach(m=>craftMap[m.craft]= (craftMap[m.craft]||0)+1);
-    const craftLabels=Object.keys(craftMap);
-    const craftData=Object.values(craftMap);
-    new Chart(document.getElementById('craftChart'),{
-      type:'bar',data:{labels:craftLabels,datasets:[{label:'Manpower',data:craftData,backgroundColor:'#4f46e5'}]}
-    });
-
-    // Peak per Project
-    const projLabels=projects.map(p=>p.name);
-    const peakData=projects.map(p=>p.requirements?p.requirements.reduce((a,r)=>a+r.qty,0):0);
-    new Chart(document.getElementById('projectPeakChart'),{
-      type:'bar',data:{labels:projLabels,datasets:[{label:'Peak Requirement',data:peakData,backgroundColor:'#fb923c'}]}
-    });
-
-    // Project Duration
-    const durData=projects.map(p=>{
-      const start=new Date(p.start),finish=new Date(p.finish);
-      return Math.max(0,Math.round((finish-start)/(1000*60*60*24)));
-    });
-    new Chart(document.getElementById('projectDurationChart'),{
-      type:'bar',data:{labels:projLabels,datasets:[{label:'Duration (days)',data:durData,backgroundColor:'#16a34a'}]}
-    });
-
-    const totalPeak = peakData.reduce((a,b)=>a+b,0);
-    document.getElementById('totalPeak').innerText=totalPeak;
-  }
-
-  // ---------- Add / Import ----------
-  document.getElementById('addMpBtn').onclick=()=>{
-    const m={
-      name:document.getElementById('mpName').value,
-      craft:document.getElementById('mpCraft').value,
-      badge:document.getElementById('mpBadge').value,
-      company:document.getElementById('mpCompany').value,
-      join:document.getElementById('mpJoin').value,
-      release:document.getElementById('mpRelease').value,
-      vacationStart:document.getElementById('mpVacationStart').value,
-      vacationEnd:document.getElementById('mpVacationEnd').value
-    };
-    manpower.push(m);
-    renderManpower(); renderShortage(); updateDashboardCharts();
-  };
-  document.getElementById('addProjBtn').onclick=()=>{
-    const p={
-      name:document.getElementById('projName').value,
-      dept:document.getElementById('projDept').value,
-      costCenter:document.getElementById('projCostCenter').value,
-      start:document.getElementById('projStart').value,
-      finish:document.getElementById('projFinish').value,
-      requirements:[
-        {craft:document.getElementById('reqMainCraft').value,qty:+document.getElementById('reqMainQty').value,start:document.getElementById('reqMainStart').value,finish:document.getElementById('reqMainFinish').value},
-        {craft:document.getElementById('reqPreCraft').value,qty:+document.getElementById('reqPreQty').value,start:document.getElementById('reqPreStart').value,finish:document.getElementById('reqPreFinish').value},
-        {craft:document.getElementById('reqPostCraft').value,qty:+document.getElementById('reqPostQty').value,start:document.getElementById('reqPostStart').value,finish:document.getElementById('reqPostFinish').value}
-      ]
-    };
-    projects.push(p);
-    renderProjects(); renderShortage(); updateDashboardCharts();
-  };
-
-  // Initial render
-  renderManpower(); renderProjects(); renderShortage(); updateDashboardCharts();
-</script>
-
+<!-- Main App -->
+<script src="assets/js/app.js"></script>
 </body>
 </html>
