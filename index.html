@@ -1432,7 +1432,7 @@
                 return;
             }
             
-            manpowerData.forEach((person, index) => {
+            manpowerData.forEach((person, index) {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td><input type="checkbox" class="manpower-checkbox" data-index="${index}"></td>
@@ -1478,7 +1478,7 @@
                 return;
             }
             
-            projectData.forEach((project, index) => {
+            projectData.forEach((project, index) {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td><input type="checkbox" class="project-checkbox" data-index="${index}"></td>
@@ -1774,7 +1774,7 @@
                 row.innerHTML = `
                     <td>${shortage.craft}</td>
                     <td>${shortage.period}</td>
-                    <td>${shortage.available}</td>
+                    <td>${shortage.available</td>
                     <td>${shortage.demand}</td>
                     <td><span class="badge bg-danger">${shortage.shortage}</span></td>
                     <td>${shortage.start}</td>
@@ -1939,7 +1939,7 @@
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${assignment.project}</td>
-                        <td>${assignment.phase</td>
+                        <td>${assignment.phase}</td>
                         <td>${assignment.craft}</td>
                         <td>${assignment.required}</td>
                         <td>${assignment.assigned}</td>
