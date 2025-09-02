@@ -183,6 +183,24 @@
             font-weight: bold;
             margin-left: 10px;
         }
+        
+        /* Fix for button styling */
+        .btn {
+            transition: all 0.3s ease;
+        }
+        
+        .btn:focus {
+            box-shadow: 0 0 0 0.25rem rgba(0, 51, 102, 0.25);
+        }
+        
+        .btn-warning:focus {
+            box-shadow: 0 0 0 0.25rem rgba(255, 119, 0, 0.25);
+        }
+        
+        /* Fix for tab navigation */
+        .nav-tabs .nav-link:focus {
+            isolation: isolate;
+        }
     </style>
 </head>
 <body>
@@ -202,32 +220,32 @@
     <div class="container-fluid mt-4">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" data-bs-target="#dashboard" type="button" role="tab">
+                <button class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" data-bs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="true">
                     <i class="fas fa-chart-line me-1"></i> Dashboard
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="manpower-tab" data-bs-toggle="tab" data-bs-target="#manpower" type="button" role="tab">
+                <button class="nav-link" id="manpower-tab" data-bs-toggle="tab" data-bs-target="#manpower" type="button" role="tab" aria-controls="manpower" aria-selected="false">
                     <i class="fas fa-users me-1"></i> Manpower
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="projects-tab" data-bs-toggle="tab" data-bs-target="#projects" type="button" role="tab">
+                <button class="nav-link" id="projects-tab" data-bs-toggle="tab" data-bs-target="#projects" type="button" role="tab" aria-controls="projects" aria-selected="false">
                     <i class="fas fa-briefcase me-1"></i> Projects
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="assignment-tab" data-bs-toggle="tab" data-bs-target="#assignment" type="button" role="tab">
+                <button class="nav-link" id="assignment-tab" data-bs-toggle="tab" data-bs-target="#assignment" type="button" role="tab" aria-controls="assignment" aria-selected="false">
                     <i class="fas fa-tasks me-1"></i> Auto Assignment
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="shortage-tab" data-bs-toggle="tab" data-bs-target="#shortage" type="button" role="tab">
+                <button class="nav-link" id="shortage-tab" data-bs-toggle="tab" data-bs-target="#shortage" type="button" role="tab" aria-controls="shortage" aria-selected="false">
                     <i class="fas fa-exclamation-triangle me-1"></i> Manpower Shortage
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="export-tab" data-bs-toggle="tab" data-bs-target="#export" type="button" role="tab">
+                <button class="nav-link" id="export-tab" data-bs-toggle="tab" data-bs-target="#export" type="button" role="tab" aria-controls="export" aria-selected="false">
                     <i class="fas fa-file-export me-1"></i> Export
                 </button>
             </li>
@@ -235,7 +253,7 @@
         
         <div class="tab-content" id="myTabContent">
             <!-- Dashboard Tab -->
-            <div class="tab-pane fade show active" id="dashboard" role="tabpanel">
+            <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
                 <h2 class="section-title">Dashboard</h2>
                 <div class="row mb-4">
                     <div class="col-md-3 mb-3">
@@ -391,7 +409,7 @@
             </div>
 
             <!-- Manpower Tab -->
-            <div class="tab-pane fade" id="manpower" role="tabpanel">
+            <div class="tab-pane fade" id="manpower" role="tabpanel" aria-labelledby="manpower-tab">
                 <h2 class="section-title">Manpower Management</h2>
                 <div class="card mb-4">
                     <div class="card-header">
@@ -411,7 +429,7 @@
                             <button class="btn btn-primary me-2" id="import-manpower">
                                 <i class="fas fa-upload me-1"></i> Import
                             </button>
-                            <button class="btn btn-warning" id="add-manpower">
+                            <button class="btn btn-warning" id="add-manpower" data-bs-toggle="modal" data-bs-target="#addManpowerModal">
                                 <i class="fas fa-plus me-1"></i> Add Manpower
                             </button>
                         </div>
@@ -459,7 +477,7 @@
             </div>
 
             <!-- Projects Tab -->
-            <div class="tab-pane fade" id="projects" role="tabpanel">
+            <div class="tab-pane fade" id="projects" role="tabpanel" aria-labelledby="projects-tab">
                 <h2 class="section-title">Project Management</h2>
                 <div class="card mb-4">
                     <div class="card-header">
@@ -479,7 +497,7 @@
                             <button class="btn btn-primary me-2" id="import-project">
                                 <i class="fas fa-upload me-1"></i> Import
                             </button>
-                            <button class="btn btn-warning" id="add-project">
+                            <button class="btn btn-warning" id="add-project" data-bs-toggle="modal" data-bs-target="#addProjectModal">
                                 <i class="fas fa-plus me-1"></i> Add Project
                             </button>
                         </div>
@@ -526,7 +544,7 @@
             </div>
 
             <!-- Auto Assignment Tab -->
-            <div class="tab-pane fade" id="assignment" role="tabpanel">
+            <div class="tab-pane fade" id="assignment" role="tabpanel" aria-labelledby="assignment-tab">
                 <h2 class="section-title">Auto Manpower Assignment</h2>
                 <div class="alert alert-info">
                     <i class="fas fa-info-circle me-2"></i> The system will automatically assign manpower to projects based on availability and project requirements. Priority is given to In-house > Qiwa > Local Hire.
@@ -586,7 +604,7 @@
             </div>
 
             <!-- Shortage Tab -->
-            <div class="tab-pane fade" id="shortage" role="tabpanel">
+            <div class="tab-pane fade" id="shortage" role="tabpanel" aria-labelledby="shortage-tab">
                 <h2 class="section-title">Manpower Shortage Report</h2>
                 
                 <div class="card mb-4">
@@ -664,7 +682,7 @@
             </div>
 
             <!-- Export Tab -->
-            <div class="tab-pane fade" id="export" role="tabpanel">
+            <div class="tab-pane fade" id="export" role="tabpanel" aria-labelledby="export-tab">
                 <h2 class="section-title">Export Data</h2>
                 
                 <div class="card mb-4">
@@ -750,6 +768,7 @@
                             </div>
                         </div>
                     </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -757,12 +776,12 @@
 
     <!-- Modals -->
     <!-- Add Manpower Modal -->
-    <div class="modal fade" id="addManpowerModal" tabindex="-1">
+    <div class="modal fade" id="addManpowerModal" tabindex="-1" aria-labelledby="addManpowerModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add New Manpower</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <h5 class="modal-title" id="addManpowerModalLabel">Add New Manpower</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="manpower-form">
@@ -821,12 +840,12 @@
     </div>
 
     <!-- Add Project Modal -->
-    <div class="modal fade" id="addProjectModal" tabindex="-1">
+    <div class="modal fade" id="addProjectModal" tabindex="-1" aria-labelledby="addProjectModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add New Project</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <h5 class="modal-title" id="addProjectModalLabel">Add New Project</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="project-form">
@@ -882,7 +901,7 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="post-start" class="form-label">Start Date</label>
-                                <input type="text" class="form-control" id="post-start" placeholder 'dd-mmm-yy' required>
+                                <input type="text" class="form-control" id="post-start" placeholder="dd-mmm-yy" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="post-finish" class="form-label">Finish Date</label>
@@ -1066,9 +1085,6 @@
                 document.getElementById('manpower-form').reset();
                 document.getElementById('save-manpower').textContent = 'Save';
                 document.getElementById('save-manpower').onclick = saveManpower;
-                
-                const modal = new bootstrap.Modal(document.getElementById('addManpowerModal'));
-                modal.show();
             });
 
             // Add project button
@@ -1077,9 +1093,6 @@
                 document.getElementById('project-form').reset();
                 document.getElementById('save-project').textContent = 'Save';
                 document.getElementById('save-project').onclick = saveProject;
-                
-                const modal = new bootstrap.Modal(document.getElementById('addProjectModal'));
-                modal.show();
             });
 
             // Save manpower
@@ -1762,7 +1775,7 @@
                     <td>${shortage.craft}</td>
                     <td>${shortage.period}</td>
                     <td>${shortage.available}</td>
-                    <td>${shortage.demand</td>
+                    <td>${shortage.demand}</td>
                     <td><span class="badge bg-danger">${shortage.shortage}</span></td>
                     <td>${shortage.start}</td>
                     <td>${shortage.finish}</td>
@@ -1926,7 +1939,7 @@
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${assignment.project}</td>
-                        <td>${assignment.phase}</td>
+                        <td>${assignment.phase</td>
                         <td>${assignment.craft}</td>
                         <td>${assignment.required}</td>
                         <td>${assignment.assigned}</td>
