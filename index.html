@@ -10,11 +10,10 @@
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <style>
         :root {
-            --navy: #003366;
-            --orange: #ff7700;
-            --light-navy: #1a4f8b;
-            --light-orange: #ffaa44;
-            --light-orange-bg: #fff5e6;
+            --primary-blue: #0056b3;
+            --secondary-orange: #ff8c00;
+            --light-blue: #e3f2fd;
+            --light-orange: #fff3e0;
         }
         
         body {
@@ -23,196 +22,164 @@
         }
         
         .navbar {
-            background-color: var(--navy);
-        }
-        
-        .navbar-brand {
-            background-color: white;
-            padding: 5px 15px;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .navbar-brand img {
-            height: 40px;
-            margin-right: 10px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-orange) 100%);
         }
         
         .nav-tabs .nav-link {
-            color: var(--navy);
+            color: #495057;
             font-weight: 500;
         }
         
         .nav-tabs .nav-link.active {
-            color: var(--orange);
-            border-color: #dee2e6 #dee2e6 #fff;
-            border-bottom: 3px solid var(--orange);
-            font-weight: 600;
+            color: var(--primary-blue);
+            border-bottom: 3px solid var(--secondary-orange);
+            background-color: transparent;
         }
         
-        .btn-primary {
-            background-color: var(--navy);
-            border-color: var(--navy);
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--light-navy);
-            border-color: var(--light-navy);
-        }
-        
-        .btn-warning {
-            background-color: var(--orange);
-            border-color: var(--orange);
-            color: white;
-        }
-        
-        .btn-warning:hover {
-            background-color: var(--light-orange);
-            border-color: var(--light-orange);
-            color: white;
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            border: none;
         }
         
         .card-header {
-            background-color: var(--navy);
+            background: linear-gradient(120deg, var(--light-blue) 0%, var(--light-orange) 100%);
+            font-weight: 600;
+            border-radius: 10px 10px 0 0 !important;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-blue);
+            border-color: var(--primary-blue);
+        }
+        
+        .btn-warning {
+            background-color: var(--secondary-orange);
+            border-color: var(--secondary-orange);
             color: white;
         }
         
-        .tab-content {
-            padding: 20px;
-            background-color: white;
-            border-radius: 0 0 5px 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            border: 1px solid #dee2e6;
-            border-top: none;
+        .btn-outline-primary {
+            color: var(--primary-blue);
+            border-color: var(--primary-blue);
         }
         
-        .dashboard-card {
-            transition: transform 0.3s;
-            height: 100%;
-        }
-        
-        .dashboard-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .stat-card {
-            border-left: 4px solid var(--navy);
-        }
-        
-        .stat-card.warning {
-            border-left: 4px solid var(--orange);
-        }
-        
-        .table th {
-            background-color: var(--navy);
+        .btn-outline-primary:hover {
+            background-color: var(--primary-blue);
             color: white;
-        }
-        
-        .highlight {
-            background-color: rgba(255, 119, 0, 0.1) !important;
-        }
-        
-        .section-title {
-            border-bottom: 2px solid var(--orange);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            color: var(--navy);
-        }
-        
-        .badge-navy {
-            background-color: var(--navy);
-        }
-        
-        .badge-orange {
-            background-color: var(--orange);
-        }
-        
-        .import-box {
-            border: 2px dashed #ccc;
-            padding: 20px;
-            text-align: center;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            background-color: #f8f9fa;
-        }
-        
-        .nav-tabs {
-            margin-bottom: 0;
-        }
-        
-        /* Dashboard specific styles */
-        .dashboard-stat {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--navy);
-        }
-        
-        .dashboard-stat.warning {
-            color: var(--orange);
-        }
-        
-        .chart-container {
-            position: relative;
-            height: 240px;
-            width: 100%;
-        }
-        
-        .dashboard-small-chart {
-            height: 200px !important;
-        }
-        
-        .orange-bg {
-            background-color: var(--light-orange-bg);
-        }
-        
-        .orange-border {
-            border-left: 4px solid var(--orange) !important;
         }
         
         .logo-container {
             background-color: white;
-            padding: 5px;
-            border-radius: 5px;
+            border-radius: 10px;
+            padding: 10px;
             display: inline-block;
+            margin-right: 15px;
         }
         
-        .page-title {
-            color: var(--navy);
+        .stats-card {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .stats-number {
+            font-size: 2rem;
             font-weight: bold;
-            margin-left: 10px;
+            color: var(--primary-blue);
         }
         
-        /* Fix for button styling */
-        .btn {
-            transition: all 0.3s ease;
+        .stats-title {
+            font-size: 0.9rem;
+            color: #6c757d;
         }
         
-        .btn:focus {
-            box-shadow: 0 0 0 0.25rem rgba(0, 51, 102, 0.25);
+        .blue-card {
+            background-color: var(--light-blue);
+            border-left: 4px solid var(--primary-blue);
         }
         
-        .btn-warning:focus {
-            box-shadow: 0 0 0 0.25rem rgba(255, 119, 0, 0.25);
+        .orange-card {
+            background-color: var(--light-orange);
+            border-left: 4px solid var(--secondary-orange);
         }
         
-        /* Fix for tab navigation */
-        .nav-tabs .nav-link:focus {
-            isolation: isolate;
+        .table thead th {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+        
+        .badge-inhouse {
+            background-color: #28a745;
+        }
+        
+        .badge-qiwa {
+            background-color: #17a2b8;
+        }
+        
+        .badge-local {
+            background-color: #6c757d;
+        }
+        
+        .phase-pre {
+            background-color: #e3f2fd;
+        }
+        
+        .phase-main {
+            background-color: #fff3e0;
+        }
+        
+        .phase-post {
+            background-color: #e8f5e9;
+        }
+        
+        .filter-section {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .dashboard-chart {
+            height: 300px;
+            margin-bottom: 30px;
+        }
+        
+        .tab-pane {
+            padding: 20px 0;
+        }
+        
+        .import-export-box {
+            border: 2px dashed #ced4da;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            background-color: #f8f9fa;
+            transition: all 0.3s;
+        }
+        
+        .import-export-box:hover {
+            border-color: var(--primary-blue);
+            background-color: #e9ecef;
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <div class="d-flex align-items-center">
                 <div class="logo-container">
-                    <img src="https://lh3.googleusercontent.com/d/1oQr4RoR9ON5vK6U_oIN2hW0HdnpEloO8" alt="KANOOZ Logo">
+                    <img src="https://lh3.googleusercontent.com/d/1oQr4RoR9ON5vK6U_oIN2hW0HdnpEloO8" height="40" alt="KANOOZ Logo">
                 </div>
-                <span class="fw-bold page-title">Manpower Assignment</span>
-            </a>
+                <span class="navbar-brand mb-0 h1">Manpower Assignment</span>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
         </div>
     </nav>
 
@@ -220,184 +187,115 @@
     <div class="container-fluid mt-4">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" data-bs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="true">
-                    <i class="fas fa-chart-line me-1"></i> Dashboard
-                </button>
+                <button class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" data-bs-target="#dashboard" type="button" role="tab">Dashboard</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="manpower-tab" data-bs-toggle="tab" data-bs-target="#manpower" type="button" role="tab" aria-controls="manpower" aria-selected="false">
-                    <i class="fas fa-users me-1"></i> Manpower
-                </button>
+                <button class="nav-link" id="manpower-tab" data-bs-toggle="tab" data-bs-target="#manpower" type="button" role="tab">Manpower</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="projects-tab" data-bs-toggle="tab" data-bs-target="#projects" type="button" role="tab" aria-controls="projects" aria-selected="false">
-                    <i class="fas fa-briefcase me-1"></i> Projects
-                </button>
+                <button class="nav-link" id="projects-tab" data-bs-toggle="tab" data-bs-target="#projects" type="button" role="tab">Projects</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="assignment-tab" data-bs-toggle="tab" data-bs-target="#assignment" type="button" role="tab" aria-controls="assignment" aria-selected="false">
-                    <i class="fas fa-tasks me-1"></i> Auto Assignment
-                </button>
+                <button class="nav-link" id="assignment-tab" data-bs-toggle="tab" data-bs-target="#assignment" type="button" role="tab">Auto Assignment</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="shortage-tab" data-bs-toggle="tab" data-bs-target="#shortage" type="button" role="tab" aria-controls="shortage" aria-selected="false">
-                    <i class="fas fa-exclamation-triangle me-1"></i> Manpower Shortage
-                </button>
+                <button class="nav-link" id="shortage-tab" data-bs-toggle="tab" data-bs-target="#shortage" type="button" role="tab">Manpower Shortage</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="export-tab" data-bs-toggle="tab" data-bs-target="#export" type="button" role="tab" aria-controls="export" aria-selected="false">
-                    <i class="fas fa-file-export me-1"></i> Export
-                </button>
+                <button class="nav-link" id="export-tab" data-bs-toggle="tab" data-bs-target="#export" type="button" role="tab">Export</button>
             </li>
         </ul>
-        
+
         <div class="tab-content" id="myTabContent">
             <!-- Dashboard Tab -->
-            <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
-                <h2 class="section-title">Dashboard</h2>
-                <div class="row mb-4">
-                    <div class="col-md-3 mb-3">
-                        <div class="card stat-card orange-border">
+            <div class="tab-pane fade show active" id="dashboard" role="tabpanel">
+                <div class="row mt-4">
+                    <div class="col-md-3">
+                        <div class="stats-card blue-card">
+                            <div class="stats-number">142</div>
+                            <div class="stats-title">Total Manpower</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card orange-card">
+                            <div class="stats-number">18</div>
+                            <div class="stats-title">Active Projects</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card blue-card">
+                            <div class="stats-number">87%</div>
+                            <div class="stats-title">Utilization Rate</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card orange-card">
+                            <div class="stats-number">23</div>
+                            <div class="stats-title">Shortage Alert</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">Manpower by Craft</div>
                             <div class="card-body">
-                                <h5 class="card-title">Total Manpower</h5>
-                                <h2 class="dashboard-stat" id="total-manpower">0</h2>
-                                <p class="card-text"><small class="text-muted" id="manpower-trend">No change</small></p>
+                                <canvas id="craftChart" class="dashboard-chart"></canvas>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3 mb-3">
-                        <div class="card stat-card orange-border">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">Project Timeline</div>
                             <div class="card-body">
-                                <h5 class="card-title">Active Projects</h5>
-                                <h2 class="dashboard-stat" id="total-projects">0</h2>
-                                <p class="card-text"><small class="text-muted" id="projects-trend">No projects</small></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <div class="card stat-card orange-border warning">
-                            <div class="card-body">
-                                <h5 class="card-title">Shortage Alert</h5>
-                                <h2 class="dashboard-stat warning" id="shortage-count">0</h2>
-                                <p class="card-text"><small class="text-muted" id="shortage-trend">No shortages</small></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <div class="card stat-card orange-border">
-                            <div class="card-body">
-                                <h5 class="card-title">Utilization Rate</h5>
-                                <h2 class="dashboard-stat" id="utilization-rate">0%</h2>
-                                <p class="card-text"><small class="text-muted" id="utilization-trend">No data</small></p>
+                                <canvas id="timelineChart" class="dashboard-chart"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="row mb-4">
-                    <div class="col-md-8">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <div class="card dashboard-card orange-bg">
-                                    <div class="card-header">
-                                        <h5 class="card-title mb-0">Manpower by Craft</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="chart-container">
-                                            <canvas id="craftChart" class="dashboard-small-chart"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="card dashboard-card orange-bg">
-                                    <div class="card-header">
-                                        <h5 class="card-title mb-0">Project Timeline</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="chart-container">
-                                            <canvas id="timelineChart" class="dashboard-small-chart"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="card dashboard-card orange-bg">
-                                    <div class="card-header">
-                                        <h5 class="card-title mb-0">Manpower by Company Type</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="chart-container">
-                                            <canvas id="companyChart" class="dashboard-small-chart"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="card dashboard-card orange-bg">
-                                    <div class="card-header">
-                                        <h5 class="card-title mb-0">Monthly Utilization</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="chart-container">
-                                            <canvas id="utilizationChart" class="dashboard-small-chart"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4 mb-3">
-                        <div class="card dashboard-card">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">Upcoming Vacations</h5>
-                            </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">Recent Assignments</div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-sm">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Craft</th>
-                                                <th>Vacation Out</th>
-                                                <th>Days</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="vacation-list">
-                                            <tr>
-                                                <td colspan="4" class="text-center">No upcoming vacations</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card dashboard-card">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">Recent Assignments</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-sm">
+                                    <table class="table table-hover">
                                         <thead>
                                             <tr>
                                                 <th>Project</th>
                                                 <th>Phase</th>
+                                                <th>Manpower</th>
                                                 <th>Craft</th>
-                                                <th>Required</th>
-                                                <th>Assigned</th>
-                                                <th>Status</th>
+                                                <th>Start Date</th>
+                                                <th>End Date</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="recent-assignments">
+                                        <tbody>
                                             <tr>
-                                                <td colspan="6" class="text-center">No assignments yet</td>
+                                                <td>Refinery Maintenance</td>
+                                                <td><span class="badge phase-pre">Pre</span></td>
+                                                <td>Ahmed Al-Saud</td>
+                                                <td>Technician</td>
+                                                <td>15-Aug-23</td>
+                                                <td>30-Sep-23</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Pipeline Installation</td>
+                                                <td><span class="badge phase-main">Main</span></td>
+                                                <td>Mohammed Khan</td>
+                                                <td>Welder</td>
+                                                <td>01-Sep-23</td>
+                                                <td>15-Oct-23</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Plant Shutdown</td>
+                                                <td><span class="badge phase-post">Post</span></td>
+                                                <td>John Smith</td>
+                                                <td>Supervisor</td>
+                                                <td>10-Sep-23</td>
+                                                <td>25-Nov-23</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -409,563 +307,420 @@
             </div>
 
             <!-- Manpower Tab -->
-            <div class="tab-pane fade" id="manpower" role="tabpanel" aria-labelledby="manpower-tab">
-                <h2 class="section-title">Manpower Management</h2>
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Import Manpower Data</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="import-box">
-                            <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
-                            <h5>Drag & Drop or Click to Upload</h5>
-                            <p class="text-muted">Supported formats: Excel (.xlsx, .xls) or CSV</p>
-                            <input type="file" class="d-none" id="manpower-file" accept=".xlsx,.xls,.csv">
-                            <button class="btn btn-primary mt-2" onclick="document.getElementById('manpower-file').click()">
-                                <i class="fas fa-upload me-1"></i> Select File
-                            </button>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <button class="btn btn-primary me-2" id="import-manpower">
-                                <i class="fas fa-upload me-1"></i> Import
-                            </button>
-                            <button class="btn btn-warning" id="add-manpower" data-bs-toggle="modal" data-bs-target="#addManpowerModal">
-                                <i class="fas fa-plus me-1"></i> Add Manpower
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="card-title mb-0">Manpower List</h5>
-                        <div>
-                            <button class="btn btn-sm btn-outline-primary me-2" id="filter-manpower">
-                                <i class="fas fa-filter me-1"></i> Filter
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger" id="delete-manpower">
-                                <i class="fas fa-trash me-1"></i> Delete Selected
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover" id="manpower-table">
-                                <thead>
-                                    <tr>
-                                        <th><input type="checkbox" id="select-all-manpower"></th>
-                                        <th>Name</th>
-                                        <th>Badge</th>
-                                        <th>Company</th>
-                                        <th>Craft</th>
-                                        <th>Joining Date</th>
-                                        <th>Release Date</th>
-                                        <th>Vacation In</th>
-                                        <th>Vacation Out</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td colspan="10" class="text-center">No manpower data available. Import or add data to get started.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+            <div class="tab-pane fade" id="manpower" role="tabpanel">
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <span>Manpower List</span>
+                                <div>
+                                    <button class="btn btn-sm btn-primary me-2"><i class="fas fa-plus me-1"></i> Add Manpower</button>
+                                    <button class="btn btn-sm btn-outline-primary"><i class="fas fa-file-import me-1"></i> Import from Excel</button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="import-export-box">
+                                    <i class="fas fa-file-excel fa-3x text-success mb-3"></i>
+                                    <h5>Import Manpower Data</h5>
+                                    <p class="text-muted">Drag and drop an Excel file here or click to browse</p>
+                                    <p class="text-muted small">Supported formats: .xlsx, .csv</p>
+                                    <button class="btn btn-primary mt-2">Browse Files</button>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Badge</th>
+                                                <th>Company</th>
+                                                <th>Craft</th>
+                                                <th>Joining Date</th>
+                                                <th>Release Date</th>
+                                                <th>Vacation In</th>
+                                                <th>Vacation Out</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Ahmed Al-Saud</td>
+                                                <td>EMP-001</td>
+                                                <td><span class="badge badge-inhouse">In-house</span></td>
+                                                <td>Technician</td>
+                                                <td>15-Jan-20</td>
+                                                <td>15-Jan-25</td>
+                                                <td>01-Jul-23</td>
+                                                <td>15-Jul-23</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
+                                                    <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Mohammed Khan</td>
+                                                <td>EMP-002</td>
+                                                <td><span class="badge badge-qiwa">Qiwa</span></td>
+                                                <td>Welder</td>
+                                                <td>20-Mar-21</td>
+                                                <td>20-Mar-24</td>
+                                                <td>10-Aug-23</td>
+                                                <td>25-Aug-23</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
+                                                    <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>John Smith</td>
+                                                <td>EMP-003</td>
+                                                <td><span class="badge badge-local">Local Hire</span></td>
+                                                <td>Supervisor</td>
+                                                <td>05-May-22</td>
+                                                <td>05-May-23</td>
+                                                <td>20-Dec-23</td>
+                                                <td>05-Jan-24</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
+                                                    <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Projects Tab -->
-            <div class="tab-pane fade" id="projects" role="tabpanel" aria-labelledby="projects-tab">
-                <h2 class="section-title">Project Management</h2>
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Import Project Data</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="import-box">
-                            <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
-                            <h5>Drag & Drop or Click to Upload</h5>
-                            <p class="text-muted">Supported formats: Excel (.xlsx, .xls) or CSV</p>
-                            <input type="file" class="d-none" id="project-file" accept=".xlsx,.xls,.csv">
-                            <button class="btn btn-primary mt-2" onclick="document.getElementById('project-file').click()">
-                                <i class="fas fa-upload me-1"></i> Select File
-                            </button>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <button class="btn btn-primary me-2" id="import-project">
-                                <i class="fas fa-upload me-1"></i> Import
-                            </button>
-                            <button class="btn btn-warning" id="add-project" data-bs-toggle="modal" data-bs-target="#addProjectModal">
-                                <i class="fas fa-plus me-1"></i> Add Project
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="card-title mb-0">Project List</h5>
-                        <div>
-                            <button class="btn btn-sm btn-outline-primary me-2" id="filter-project">
-                                <i class="fas fa-filter me-1"></i> Filter
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger" id="delete-project">
-                                <i class="fas fa-trash me-1"></i> Delete Selected
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover" id="project-table">
-                                <thead>
-                                    <tr>
-                                        <th><input type="checkbox" id="select-all-projects"></th>
-                                        <th>Project ID</th>
-                                        <th>Project Name</th>
-                                        <th>Cost Center</th>
-                                        <th>Department</th>
-                                        <th>Pre Phase</th>
-                                        <th>Main Phase</th>
-                                        <th>Post Phase</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td colspan="9" class="text-center">No project data available. Import or add data to get started.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+            <div class="tab-pane fade" id="projects" role="tabpanel">
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <span>Projects List</span>
+                                <div>
+                                    <button class="btn btn-sm btn-primary me-2"><i class="fas fa-plus me-1"></i> Add Project</button>
+                                    <button class="btn btn-sm btn-outline-primary"><i class="fas fa-file-import me-1"></i> Import from Excel</button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="import-export-box">
+                                    <i class="fas fa-file-excel fa-3x text-success mb-3"></i>
+                                    <h5>Import Project Data</h5>
+                                    <p class="text-muted">Drag and drop an Excel file here or click to browse</p>
+                                    <p class="text-muted small">Supported formats: .xlsx, .csv</p>
+                                    <button class="btn btn-primary mt-2">Browse Files</button>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Project Name</th>
+                                                <th>Cost Center</th>
+                                                <th>Department</th>
+                                                <th>Pre Phase</th>
+                                                <th>Main Phase</th>
+                                                <th>Post Phase</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Refinery Maintenance</td>
+                                                <td>CC-101</td>
+                                                <td>Operations</td>
+                                                <td>15-Aug-23 to 30-Sep-23</td>
+                                                <td>01-Oct-23 to 30-Nov-23</td>
+                                                <td>01-Dec-23 to 15-Jan-24</td>
+                                                <td><span class="badge bg-success">Active</span></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
+                                                    <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Pipeline Installation</td>
+                                                <td>CC-102</td>
+                                                <td>Construction</td>
+                                                <td>01-Sep-23 to 30-Sep-23</td>
+                                                <td>01-Oct-23 to 31-Dec-23</td>
+                                                <td>01-Jan-24 to 31-Jan-24</td>
+                                                <td><span class="badge bg-warning text-dark">Planning</span></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
+                                                    <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Plant Shutdown</td>
+                                                <td>CC-103</td>
+                                                <td>Maintenance</td>
+                                                <td>10-Sep-23 to 30-Sep-23</td>
+                                                <td>01-Oct-23 to 15-Nov-23</td>
+                                                <td>16-Nov-23 to 30-Nov-23</td>
+                                                <td><span class="badge bg-info">Upcoming</span></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
+                                                    <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Auto Assignment Tab -->
-            <div class="tab-pane fade" id="assignment" role="tabpanel" aria-labelledby="assignment-tab">
-                <h2 class="section-title">Auto Manpower Assignment</h2>
-                <div class="alert alert-info">
-                    <i class="fas fa-info-circle me-2"></i> The system will automatically assign manpower to projects based on availability and project requirements. Priority is given to In-house > Qiwa > Local Hire.
-                </div>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Assignment Controls</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4 mb-3">
-                                <button class="btn btn-primary w-100" id="run-assignment">
-                                    <i class="fas fa-cogs me-2"></i> Run Auto Assignment
+            <div class="tab-pane fade" id="assignment" role="tabpanel">
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <span>Auto Assignment Results</span>
+                                <button class="btn btn-sm btn-primary" id="runAssignment">
+                                    <i class="fas fa-cogs me-1"></i> Run Auto Assignment
                                 </button>
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <button class="btn btn-warning w-100" id="clear-assignment">
-                                    <i class="fas fa-eraser me-2"></i> Clear Assignments
-                                </button>
+                            <div class="card-body">
+                                <div class="alert alert-info">
+                                    <i class="fas fa-info-circle me-2"></i> The system will assign manpower to projects based on availability, skills, and priority (In-house > Qiwa > Local Hire)
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Project/Phase</th>
+                                                <th>Required Craft</th>
+                                                <th>Assigned Manpower</th>
+                                                <th>Company</th>
+                                                <th>Dates</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Refinery Maintenance (Pre)</td>
+                                                <td>Technician (3)</td>
+                                                <td>Ahmed Al-Saud, Faisal Rahman, Omar Mohammed</td>
+                                                <td><span class="badge badge-inhouse">In-house</span></td>
+                                                <td>15-Aug-23 to 30-Sep-23</td>
+                                                <td><span class="badge bg-success">Assigned</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Pipeline Installation (Main)</td>
+                                                <td>Welder (2)</td>
+                                                <td>Mohammed Khan, Salim Ahmed</td>
+                                                <td><span class="badge badge-qiwa">Qiwa</span></td>
+                                                <td>01-Oct-23 to 31-Dec-23</td>
+                                                <td><span class="badge bg-success">Assigned</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Plant Shutdown (Post)</td>
+                                                <td>Supervisor (1)</td>
+                                                <td>John Smith</td>
+                                                <td><span class="badge badge-local">Local Hire</span></td>
+                                                <td>16-Nov-23 to 30-Nov-23</td>
+                                                <td><span class="badge bg-success">Assigned</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <button class="btn btn-success w-100" id="export-assignment">
-                                    <i class="fas fa-file-export me-2"></i> Export Assignments
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Assignment Results</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped" id="assignment-table">
-                                <thead>
-                                    <tr>
-                                        <th>Project Name</th>
-                                        <th>Phase</th>
-                                        <th>Craft</th>
-                                        <th>Required</th>
-                                        <th>Assigned</th>
-                                        <th>Assigned Names</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td colspan="6" class="text-center">No assignment data available. Run auto assignment to generate results.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Shortage Tab -->
-            <div class="tab-pane fade" id="shortage" role="tabpanel" aria-labelledby="shortage-tab">
-                <h2 class="section-title">Manpower Shortage Report</h2>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Shortage Filters</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-3 mb-3">
-                                <label for="shortage-craft" class="form-label">Craft Filter</label>
-                                <select class="form-select" id="shortage-craft">
-                                    <option value="all">All Crafts</option>
-                                    <option value="Electrician">Electrician</option>
-                                    <option value="Welder">Welder</option>
-                                    <option value="Technician">Technician</option>
-                                    <option value="Mechanic">Mechanic</option>
-                                    <option value="Operator">Operator</option>
-                                </select>
+            <div class="tab-pane fade" id="shortage" role="tabpanel">
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                Manpower Shortage Report
                             </div>
-                            <div class="col-md-3 mb-3">
-                                <label for="shortage-period" class="form-label">Time Period</label>
-                                <select class="form-select" id="shortage-period">
-                                    <option value="1">Next 1 Month</option>
-                                    <option value="2">Next 2 Months</option>
-                                    <option value="3">Next 3 Months</option>
-                                    <option value="6">Next 6 Months</option>
-                                    <option value="all">All Time</option>
-                                </select>
+                            <div class="card-body">
+                                <div class="filter-section">
+                                    <h5>Filter Shortage Forecast</h5>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="shortagePeriod" class="form-label">Select Period:</label>
+                                            <select class="form-select" id="shortagePeriod">
+                                                <option value="1">Next 1 Month</option>
+                                                <option value="2">Next 2 Months</option>
+                                                <option value="3">Next 3 Months</option>
+                                                <option value="4">Next 4 Months</option>
+                                                <option value="5">Next 5 Months</option>
+                                                <option value="6" selected>Next 6 Months</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="craftFilter" class="form-label">Filter by Craft:</label>
+                                            <select class="form-select" id="craftFilter">
+                                                <option value="all" selected>All Crafts</option>
+                                                <option value="Technician">Technician</option>
+                                                <option value="Welder">Welder</option>
+                                                <option value="Supervisor">Supervisor</option>
+                                                <option value="Engineer">Engineer</option>
+                                                <option value="Operator">Operator</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary mt-3"><i class="fas fa-filter me-1"></i> Apply Filters</button>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Craft</th>
+                                                <th>Period</th>
+                                                <th>Demand</th>
+                                                <th>Available</th>
+                                                <th>Shortage</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Technician</td>
+                                                <td>Sep 2023 - Feb 2024</td>
+                                                <td>45</td>
+                                                <td>32</td>
+                                                <td>13</td>
+                                                <td><span class="badge bg-danger">Critical</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Welder</td>
+                                                <td>Sep 2023 - Feb 2024</td>
+                                                <td>28</td>
+                                                <td>25</td>
+                                                <td>3</td>
+                                                <td><span class="badge bg-warning text-dark">Moderate</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Supervisor</td>
+                                                <td>Sep 2023 - Feb 2024</td>
+                                                <td>15</td>
+                                                <td>12</td>
+                                                <td>3</td>
+                                                <td><span class="badge bg-warning text-dark">Moderate</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Engineer</td>
+                                                <td>Sep 2023 - Feb 2024</td>
+                                                <td>20</td>
+                                                <td>18</td>
+                                                <td>2</td>
+                                                <td><span class="badge bg-info">Low</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                            <div class="col-md-3 mb-3">
-                                <label for="shortage-company" class="form-label">Company Type</label>
-                                <select class="form-select" id="shortage-company">
-                                    <option value="all">All Types</option>
-                                    <option value="In-house">In-house</option>
-                                    <option value="Qiwa">Qiwa</option>
-                                    <option value="Local Hire">Local Hire</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3 mb-3 d-flex align-items-end">
-                                <button class="btn btn-primary w-100" id="apply-filters">
-                                    <i class="fas fa-filter me-2"></i> Apply Filters
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Shortage Summary</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped" id="shortage-table">
-                                <thead>
-                                    <tr>
-                                        <th>Craft</th>
-                                        <th>Time Period</th>
-                                        <th>Available Manpower</th>
-                                        <th>Demand</th>
-                                        <th>Shortage</th>
-                                        <th>Start Date</th>
-                                        <th>Finish Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td colspan="7" class="text-center">No shortage data available. Run auto assignment to generate shortage report.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Export Tab -->
-            <div class="tab-pane fade" id="export" role="tabpanel" aria-labelledby="export-tab">
-                <h2 class="section-title">Export Data</h2>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Export Options</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4 mb-3">
-                                <div class="card h-100">
-                                    <div class="card-body text-center">
-                                        <i class="fas fa-users fa-3x text-navy mb-3"></i>
-                                        <h5 class="card-title">Manpower Data</h5>
-                                        <p class="card-text">Export complete manpower list with all details</p>
-                                        <button class="btn btn-primary" id="export-manpower">
-                                            <i class="fas fa-download me-2"></i> Export
-                                        </button>
+            <div class="tab-pane fade" id="export" role="tabpanel">
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                Export Data
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card h-100">
+                                            <div class="card-header">Export Assignment Data</div>
+                                            <div class="card-body text-center">
+                                                <i class="fas fa-user-check fa-3x text-primary mb-3"></i>
+                                                <h5>Manpower Assignment Report</h5>
+                                                <p class="text-muted">Export the complete assignment details with manpower names allocated to each project</p>
+                                                <button class="btn btn-primary mt-3"><i class="fas fa-file-export me-1"></i> Export to Excel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card h-100">
+                                            <div class="card-header">Export Shortage Data</div>
+                                            <div class="card-body text-center">
+                                                <i class="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
+                                                <h5>Manpower Shortage Report</h5>
+                                                <p class="text-muted">Export the craft-wise shortage details with timelines and requirements</p>
+                                                <button class="btn btn-primary mt-3"><i class="fas fa-file-export me-1"></i> Export to Excel</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <div class="card h-100">
-                                    <div class="card-body text-center">
-                                        <i class="fas fa-briefcase fa-3x text-navy mb-3"></i>
-                                        <h5 class="card-title">Project Data</h5>
-                                        <p class="card-text">Export complete project list with all details</p>
-                                        <button class="btn btn-primary" id="export-projects">
-                                            <i class="fas fa-download me-2"></i> Export
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <div class="card h-100">
-                                    <div class="card-body text-center">
-                                        <i class="fas fa-tasks fa-3x text-navy mb-3"></i>
-                                        <h5 class="card-title">Assignment Data</h5>
-                                        <p class="card-text">Export assignment details with manpower names</p>
-                                        <button class="btn btn-primary" id="export-assignments">
-                                            <i class="fas fa-download me-2"></i> Export
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="row mt-3">
-                            <div class="col-md-4 mb-3">
-                                <div class="card h-100">
-                                    <div class="card-body text-center">
-                                        <i class="fas fa-exclamation-triangle fa-3x text-orange mb-3"></i>
-                                        <h5 class="card-title">Shortage Report</h5>
-                                        <p class="card-text">Export manpower shortage report craft-wise</p>
-                                        <button class="btn btn-warning" id="export-shortage">
-                                            <i class="fas fa-download me-2"></i> Export
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <div class="card h-100">
-                                    <div class="card-body text-center">
-                                        <i class="fas fa-chart-line fa-3x text-navy mb-3"></i>
-                                        <h5 class="card-title">Dashboard Data</h5>
-                                        <p class="card-text">Export dashboard statistics and charts data</p>
-                                        <button class="btn btn-primary" id="export-dashboard">
-                                            <i class="fas fa-download me-2"></i> Export
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <div class="card h-100">
-                                    <div class="card-body text-center">
-                                        <i class="fas fa-file-excel fa-3x text-success mb-3"></i>
-                                        <h5 class="card-title">Complete Report</h5>
-                                        <p class="card-text">Export all data in a comprehensive Excel report</p>
-                                        <button class="btn btn-success" id="export-all">
-                                            <i class="fas fa-download me-2"></i> Export All
-                                        </button>
+
+                                <div class="row mt-4">
+                                    <div class="col-md-12">
+                                        <div class="import-export-box">
+                                            <i class="fas fa-file-excel fa-3x text-success mb-3"></i>
+                                            <h5>Custom Export</h5>
+                                            <p class="text-muted">Select data range and parameters for customized export</p>
+                                            <div class="row justify-content-center">
+                                                <div class="col-md-5">
+                                                    <label class="form-label">Start Date</label>
+                                                    <input type="date" class="form-control">
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <label class="form-label">End Date</label>
+                                                    <input type="date" class="form-control">
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-primary mt-3"><i class="fas fa-file-export me-1"></i> Generate Custom Report</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modals -->
-    <!-- Add Manpower Modal -->
-    <div class="modal fade" id="addManpowerModal" tabindex="-1" aria-labelledby="addManpowerModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addManpowerModalLabel">Add New Manpower</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="manpower-form">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="name" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="badge" class="form-label">Badge Number</label>
-                                <input type="text" class="form-control" id="badge" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="company" class="form-label">Company</label>
-                                <select class="form-select" id="company" required>
-                                    <option value="In-house">In-house</option>
-                                    <option value="Qiwa">Qiwa</option>
-                                    <option value="Local Hire">Local Hire</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="craft" class="form-label">Craft</label>
-                                <input type="text" class="form-control" id="craft" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="joining-date" class="form-label">Joining Date</label>
-                                <input type="text" class="form-control" id="joining-date" placeholder="dd-mmm-yy" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="release-date" class="form-label">Release Date</label>
-                                <input type="text" class="form-control" id="release-date" placeholder="dd-mmm-yy">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="vacation-in" class="form-label">Vacation In</label>
-                                <input type="text" class="form-control" id="vacation-in" placeholder="dd-mmm-yy">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="vacation-out" class="form-label">Vacation Out</label>
-                                <input type="text" class="form-control" id="vacation-out" placeholder="dd-mmm-yy">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="save-manpower">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Add Project Modal -->
-    <div class="modal fade" id="addProjectModal" tabindex="-1" aria-labelledby="addProjectModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addProjectModalLabel">Add New Project</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="project-form">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="project-id" class="form-label">Project ID</label>
-                                <input type="text" class="form-control" id="project-id" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="project-name" class="form-label">Project Name</label>
-                                <input type="text" class="form-control" id="project-name" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="cost-center" class="form-label">Cost Center</label>
-                                <input type="text" class="form-control" id="cost-center" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="department" class="form-label">Department</label>
-                                <input type="text" class="form-control" id="department" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 mb-3">
-                                <h6 class="border-bottom pb-2">Pre Phase</h6>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="pre-start" class="form-label">Start Date</label>
-                                <input type="text" class="form-control" id="pre-start" placeholder="dd-mmm-yy" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="pre-finish" class="form-label">Finish Date</label>
-                                <input type="text" class="form-control" id="pre-finish" placeholder="dd-mmm-yy" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 mb-3">
-                                <h6 class="border-bottom pb-2">Main Phase</h6>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="main-start" class="form-label">Start Date</label>
-                                <input type="text" class="form-control" id="main-start" placeholder="dd-mmm-yy" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="main-finish" class="form-label">Finish Date</label>
-                                <input type="text" class="form-control" id="main-finish" placeholder="dd-mmm-yy" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 mb-3">
-                                <h6 class="border-bottom pb-2">Post Phase</h6>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="post-start" class="form-label">Start Date</label>
-                                <input type="text" class="form-control" id="post-start" placeholder="dd-mmm-yy" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="post-finish" class="form-label">Finish Date</label>
-                                <input type="text" class="form-control" id="post-finish" placeholder="dd-mmm-yy" required>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="save-project">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Sample data for demonstration
-        let manpowerData = [];
-        let projectData = [];
-        let assignmentData = [];
-        let shortageData = [];
-        let previousManpowerCount = 0;
-        let previousProjectCount = 0;
-        let previousShortageCount = 0;
-        let previousUtilizationRate = 0;
-
-        // DOM Ready
+        // Initialize charts
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize charts
-            initCharts();
-            
-            // Set up event listeners
-            setupEventListeners();
-            
-            // Initialize tabs
-            const triggerTabList = [].slice.call(document.querySelectorAll('#myTab button'));
-            triggerTabList.forEach(function (triggerEl) {
-                triggerEl.addEventListener('click', function (event) {
-                    event.preventDefault();
-                    const tabTrigger = new bootstrap.Tab(triggerEl);
-                    tabTrigger.show();
-                });
-            });
-            
-            // Update dashboard
-            updateDashboard();
-        });
-
-        // Initialize Charts
-        function initCharts() {
             // Craft Chart
             const craftCtx = document.getElementById('craftChart').getContext('2d');
-            window.craftChart = new Chart(craftCtx, {
+            const craftChart = new Chart(craftCtx, {
                 type: 'bar',
                 data: {
-                    labels: ['Electrician', 'Welder', 'Technician', 'Mechanic', 'Operator'],
+                    labels: ['Technician', 'Welder', 'Supervisor', 'Engineer', 'Operator'],
                     datasets: [{
                         label: 'Manpower by Craft',
-                        data: [0, 0, 0, 0, 0],
-                        backgroundColor: '#ff7700',
-                        borderColor: '#ff7700',
+                        data: [32, 25, 12, 18, 22],
+                        backgroundColor: [
+                            'rgba(0, 86, 179, 0.7)',
+                            'rgba(255, 140, 0, 0.7)',
+                            'rgba(0, 86, 179, 0.5)',
+                            'rgba(255, 140, 0, 0.5)',
+                            'rgba(0, 86, 179, 0.3)'
+                        ],
+                        borderColor: [
+                            'rgb(0, 86, 179)',
+                            'rgb(255, 140, 0)',
+                            'rgb(0, 86, 179)',
+                            'rgb(255, 140, 0)',
+                            'rgb(0, 86, 179)'
+                        ],
                         borderWidth: 1
                     }]
                 },
@@ -975,11 +730,6 @@
                     scales: {
                         y: {
                             beginAtZero: true
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
                         }
                     }
                 }
@@ -987,18 +737,23 @@
 
             // Timeline Chart
             const timelineCtx = document.getElementById('timelineChart').getContext('2d');
-            window.timelineChart = new Chart(timelineCtx, {
+            const timelineChart = new Chart(timelineCtx, {
                 type: 'line',
                 data: {
                     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                     datasets: [{
-                        label: 'Active Projects',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        backgroundColor: 'rgba(255, 119, 0, 0.2)',
-                        borderColor: '#ff7700',
-                        borderWidth: 2,
-                        tension: 0.3,
-                        fill: true
+                        label: 'Manpower Demand',
+                        data: [65, 59, 80, 81, 56, 55, 70, 75, 90, 95, 85, 70],
+                        fill: false,
+                        borderColor: 'rgb(255, 140, 0)',
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Manpower Supply',
+                        data: [70, 62, 75, 78, 60, 58, 72, 70, 82, 80, 78, 75],
+                        fill: false,
+                        borderColor: 'rgb(0, 86, 179)',
+                        tension: 0.1
                     }]
                 },
                 options: {
@@ -1006,974 +761,31 @@
                     maintainAspectRatio: false,
                     scales: {
                         y: {
-                            beginAtZero: true
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
+                            beginAtZero: false
                         }
                     }
                 }
             });
 
-            // Company Chart
-            const companyCtx = document.getElementById('companyChart').getContext('2d');
-            window.companyChart = new Chart(companyCtx, {
-                type: 'pie',
-                data: {
-                    labels: ['In-house', 'Qiwa', 'Local Hire'],
-                    datasets: [{
-                        data: [0, 0, 0],
-                        backgroundColor: ['#003366', '#ff7700', '#1a4f8b'],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }
-            });
-
-            // Utilization Chart
-            const utilizationCtx = document.getElementById('utilizationChart').getContext('2d');
-            window.utilizationChart = new Chart(utilizationCtx, {
-                type: 'bar',
-                data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                    datasets: [{
-                        label: 'Utilization Rate',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        backgroundColor: '#ff7700',
-                        borderColor: '#ff7700',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 100,
-                            ticks: {
-                                callback: function(value) {
-                                    return value + '%';
-                                }
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            });
-        }
-
-        // Set up event listeners
-        function setupEventListeners() {
-            // Add manpower button
-            document.getElementById('add-manpower').addEventListener('click', function() {
-                // Reset form and set save button to add mode
-                document.getElementById('manpower-form').reset();
-                document.getElementById('save-manpower').textContent = 'Save';
-                document.getElementById('save-manpower').onclick = saveManpower;
-            });
-
-            // Add project button
-            document.getElementById('add-project').addEventListener('click', function() {
-                // Reset form and set save button to add mode
-                document.getElementById('project-form').reset();
-                document.getElementById('save-project').textContent = 'Save';
-                document.getElementById('save-project').onclick = saveProject;
-            });
-
-            // Save manpower
-            document.getElementById('save-manpower').addEventListener('click', saveManpower);
-
-            // Save project
-            document.getElementById('save-project').addEventListener('click', saveProject);
-
-            // Run assignment
-            document.getElementById('run-assignment').addEventListener('click', function() {
-                runAutoAssignment();
-            });
-            
-            // Clear assignment
-            document.getElementById('clear-assignment').addEventListener('click', function() {
-                assignmentData = [];
-                shortageData = [];
-                updateAssignmentTable();
-                updateShortageTable();
-                updateDashboard();
-                alert('Assignments cleared!');
-            });
-
-            // Apply filters for shortage
-            document.getElementById('apply-filters').addEventListener('click', function() {
-                updateShortageTable();
-            });
-            
-            // Select all manpower
-            document.getElementById('select-all-manpower').addEventListener('click', function() {
-                const checkboxes = document.querySelectorAll('.manpower-checkbox');
-                checkboxes.forEach(checkbox => {
-                    checkbox.checked = document.getElementById('select-all-manpower').checked;
+            // Tab functionality
+            const triggerTabList = document.querySelectorAll('#myTab button');
+            triggerTabList.forEach(triggerEl => {
+                triggerEl.addEventListener('click', event => {
+                    event.preventDefault();
+                    const tab = new bootstrap.Tab(triggerEl);
+                    tab.show();
                 });
             });
-            
-            // Select all projects
-            document.getElementById('select-all-projects').addEventListener('click', function() {
-                const checkboxes = document.querySelectorAll('.project-checkbox');
-                checkboxes.forEach(checkbox => {
-                    checkbox.checked = document.getElementById('select-all-projects').checked;
-                });
-            });
-            
-            // Delete selected manpower
-            document.getElementById('delete-manpower').addEventListener('click', function() {
-                const selectedIndexes = [];
-                const checkboxes = document.querySelectorAll('.manpower-checkbox');
-                
-                checkboxes.forEach((checkbox, index) => {
-                    if (checkbox.checked) {
-                        selectedIndexes.push(index);
-                    }
-                });
-                
-                if (selectedIndexes.length === 0) {
-                    alert('Please select at least one manpower to delete.');
-                    return;
-                }
-                
-                if (!confirm(`Are you sure you want to delete ${selectedIndexes.length} manpower records?`)) {
-                    return;
-                }
-                
-                // Delete from last to first to avoid index issues
-                selectedIndexes.sort((a, b) => b - a).forEach(index => {
-                    manpowerData.splice(index, 1);
-                });
-                
-                updateManpowerTable();
-                updateDashboard();
-                alert(`Deleted ${selectedIndexes.length} manpower records.`);
-            });
-            
-            // Delete selected projects
-            document.getElementById('delete-project').addEventListener('click', function() {
-                const selectedIndexes = [];
-                const checkboxes = document.querySelectorAll('.project-checkbox');
-                
-                checkboxes.forEach((checkbox, index) => {
-                    if (checkbox.checked) {
-                        selectedIndexes.push(index);
-                    }
-                });
-                
-                if (selectedIndexes.length === 0) {
-                    alert('Please select at least one project to delete.');
-                    return;
-                }
-                
-                if (!confirm(`Are you sure you want to delete ${selectedIndexes.length} projects?`)) {
-                    return;
-                }
-                
-                // Delete from last to first to avoid index issues
-                selectedIndexes.sort((a, b) => b - a).forEach(index => {
-                    projectData.splice(index, 1);
-                });
-                
-                updateProjectTable();
-                updateDashboard();
-                alert(`Deleted ${selectedIndexes.length} projects.`);
-            });
-            
-            // Import manpower
-            document.getElementById('import-manpower').addEventListener('click', function() {
-                const fileInput = document.getElementById('manpower-file');
-                if (fileInput.files.length === 0) {
-                    alert('Please select a file to import.');
-                    return;
-                }
-                
-                // Simulate import process
-                alert('Manpower data imported successfully!');
-                
-                // Add sample data for demonstration
-                manpowerData = [
-                    { name: 'Ahmed Hassan', badge: 'KH001', company: 'In-house', craft: 'Electrician', joining: '01-Jan-23', release: '', vacationIn: '15-Aug-23', vacationOut: '01-Sep-23' },
-                    { name: 'Mohammed Ali', badge: 'KH002', company: 'In-house', craft: 'Welder', joining: '15-Jan-23', release: '', vacationIn: '20-Jul-23', vacationOut: '05-Aug-23' },
-                    { name: 'Omar Khan', badge: 'KH003', company: 'Qiwa', craft: 'Technician', joining: '01-Feb-23', release: '', vacationIn: '10-Sep-23', vacationOut: '25-Sep-23' },
-                    { name: 'Abdullah Saleh', badge: 'KH004', company: 'Local Hire', craft: 'Mechanic', joining: '15-Feb-23', release: '', vacationIn: '05-Jun-23', vacationOut: '20-Jun-23' },
-                    { name: 'Ibrahim Mohamed', badge: 'KH005', company: 'In-house', craft: 'Operator', joining: '01-Mar-23', release: '', vacationIn: '12-Aug-23', vacationOut: '28-Aug-23' }
-                ];
-                
-                updateManpowerTable();
-                updateDashboard();
-            });
-            
-            // Import project
-            document.getElementById('import-project').addEventListener('click', function() {
-                const fileInput = document.getElementById('project-file');
-                if (fileInput.files.length === 0) {
-                    alert('Please select a file to import.');
-                    return;
-                }
-                
-                // Simulate import process
-                alert('Project data imported successfully!');
-                
-                // Add sample data for demonstration
-                projectData = [
-                    { 
-                        id: 'P001', 
-                        name: 'Refinery Maintenance', 
-                        costCenter: 'CC101', 
-                        department: 'Maintenance',
-                        prePhase: { start: '01-Mar-23', finish: '30-Mar-23', manpower: { Electrician: 2, Welder: 1, Technician: 2 } },
-                        mainPhase: { start: '01-Apr-23', finish: '30-Jun-23', manpower: { Electrician: 4, Welder: 3, Technician: 3, Mechanic: 2 } },
-                        postPhase: { start: '01-Jul-23', finish: '31-Jul-23', manpower: { Electrician: 2, Technician: 1 } }
-                    },
-                    { 
-                        id: 'P002', 
-                        name: 'Pipeline Installation', 
-                        costCenter: 'CC102', 
-                        department: 'Construction',
-                        prePhase: { start: '15-Mar-23', finish: '15-Apr-23', manpower: { Welder: 2, Operator: 2 } },
-                        mainPhase: { start: '16-Apr-23', finish: '15-Jul-23', manpower: { Electrician: 3, Welder: 4, Technician: 2, Operator: 3 } },
-                        postPhase: { start: '16-Jul-23', finish: '15-Aug-23', manpower: { Electrician: 1, Technician: 1 } }
-                    }
-                ];
-                
-                updateProjectTable();
-                updateDashboard();
-            });
-            
-            // Filter manpower
-            document.getElementById('filter-manpower').addEventListener('click', function() {
-                alert('Manpower filter functionality would be implemented here.');
-            });
-            
-            // Filter project
-            document.getElementById('filter-project').addEventListener('click', function() {
-                alert('Project filter functionality would be implemented here.');
-            });
-            
-            // Export buttons
-            document.getElementById('export-manpower').addEventListener('click', function() {
-                if (manpowerData.length === 0) {
-                    alert('No manpower data to export.');
-                    return;
-                }
-                exportToExcel(manpowerData, 'manpower_data');
-            });
-            
-            document.getElementById('export-projects').addEventListener('click', function() {
-                if (projectData.length === 0) {
-                    alert('No project data to export.');
-                    return;
-                }
-                exportToExcel(projectData, 'project_data');
-            });
-            
-            document.getElementById('export-assignments').addEventListener('click', function() {
-                if (assignmentData.length === 0) {
-                    alert('No assignment data to export.');
-                    return;
-                }
-                exportToExcel(assignmentData, 'assignment_data');
-            });
-            
-            document.getElementById('export-assignment').addEventListener('click', function() {
-                if (assignmentData.length === 0) {
-                    alert('No assignment data to export.');
-                    return;
-                }
-                exportToExcel(assignmentData, 'assignment_data');
-            });
-            
-            document.getElementById('export-shortage').addEventListener('click', function() {
-                if (shortageData.length === 0) {
-                    alert('No shortage data to export.');
-                    return;
-                }
-                exportToExcel(shortageData, 'shortage_data');
-            });
-            
-            document.getElementById('export-dashboard').addEventListener('click', function() {
-                const dashboardData = {
-                    stats: {
-                        totalManpower: manpowerData.length,
-                        totalProjects: projectData.length,
-                        shortageCount: shortageData.reduce((sum, item) => sum + item.shortage, 0),
-                        utilizationRate: calculateUtilizationRate()
-                    },
-                    manpower: manpowerData,
-                    projects: projectData,
-                    assignments: assignmentData,
-                    shortages: shortageData
-                };
-                exportToExcel(dashboardData, 'dashboard_data');
-            });
-            
-            document.getElementById('export-all').addEventListener('click', function() {
-                if (manpowerData.length === 0 && projectData.length === 0 && assignmentData.length === 0 && shortageData.length === 0) {
-                    alert('No data to export.');
-                    return;
-                }
-                
-                const allData = {
-                    manpower: manpowerData,
-                    projects: projectData,
-                    assignments: assignmentData,
-                    shortages: shortageData
-                };
-                exportToExcel(allData, 'complete_report');
-            });
-        }
 
-        // Save manpower
-        function saveManpower() {
-            // Get form values
-            const name = document.getElementById('name').value;
-            const badge = document.getElementById('badge').value;
-            const company = document.getElementById('company').value;
-            const craft = document.getElementById('craft').value;
-            const joiningDate = document.getElementById('joining-date').value;
-            const releaseDate = document.getElementById('release-date').value;
-            const vacationIn = document.getElementById('vacation-in').value;
-            const vacationOut = document.getElementById('vacation-out').value;
-            
-            if (!name || !badge || !company || !craft || !joiningDate) {
-                alert('Please fill in all required fields.');
-                return;
-            }
-            
-            // Add to manpower data
-            manpowerData.push({
-                name, badge, company, craft, 
-                joining: joiningDate, 
-                release: releaseDate, 
-                vacationIn, 
-                vacationOut
+            // Run Assignment button
+            document.getElementById('runAssignment').addEventListener('click', function() {
+                alert('Auto assignment process started. This may take a few moments...');
+                // Simulate processing time
+                setTimeout(function() {
+                    alert('Auto assignment completed successfully!');
+                }, 2000);
             });
-            
-            // Update table
-            updateManpowerTable();
-            
-            // Update dashboard
-            updateDashboard();
-            
-            alert('Manpower added successfully!');
-            const modal = bootstrap.Modal.getInstance(document.getElementById('addManpowerModal'));
-            modal.hide();
-            
-            // Reset form
-            document.getElementById('manpower-form').reset();
-        }
-
-        // Save project
-        function saveProject() {
-            // Get form values
-            const id = document.getElementById('project-id').value;
-            const name = document.getElementById('project-name').value;
-            const costCenter = document.getElementById('cost-center').value;
-            const department = document.getElementById('department').value;
-            const preStart = document.getElementById('pre-start').value;
-            const preFinish = document.getElementById('pre-finish').value;
-            const mainStart = document.getElementById('main-start').value;
-            const mainFinish = document.getElementById('main-finish').value;
-            const postStart = document.getElementById('post-start').value;
-            const postFinish = document.getElementById('post-finish').value;
-            
-            if (!id || !name || !costCenter || !department || !preStart || !preFinish || !mainStart || !mainFinish || !postStart || !postFinish) {
-                alert('Please fill in all required fields.');
-                return;
-            }
-            
-            // Add to project data
-            projectData.push({
-                id, name, costCenter, department,
-                prePhase: { start: preStart, finish: preFinish, manpower: {} },
-                mainPhase: { start: mainStart, finish: mainFinish, manpower: {} },
-                postPhase: { start: postStart, finish: postFinish, manpower: {} }
-            });
-            
-            // Update table
-            updateProjectTable();
-            
-            // Update dashboard
-            updateDashboard();
-            
-            alert('Project added successfully!');
-            const modal = bootstrap.Modal.getInstance(document.getElementById('addProjectModal'));
-            modal.hide();
-            
-            // Reset form
-            document.getElementById('project-form').reset();
-        }
-
-        // Update manpower table
-        function updateManpowerTable() {
-            const tableBody = document.querySelector('#manpower-table tbody');
-            tableBody.innerHTML = '';
-            
-            if (manpowerData.length === 0) {
-                tableBody.innerHTML = '<tr><td colspan="10" class="text-center">No manpower data available. Import or add data to get started.</td></tr>';
-                return;
-            }
-            
-            manpowerData.forEach((person, index) {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td><input type="checkbox" class="manpower-checkbox" data-index="${index}"></td>
-                    <td>${person.name}</td>
-                    <td>${person.badge}</td>
-                    <td><span class="badge ${getCompanyBadgeClass(person.company)}">${person.company}</span></td>
-                    <td>${person.craft}</td>
-                    <td>${person.joining}</td>
-                    <td>${person.release || '-'}</td>
-                    <td>${person.vacationIn || '-'}</td>
-                    <td>${person.vacationOut || '-'}</td>
-                    <td>
-                        <button class="btn btn-sm btn-outline-primary me-1 edit-manpower" data-index="${index}"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm btn-outline-danger delete-manpower" data-index="${index}"><i class="fas fa-trash"></i></button>
-                    </td>
-                `;
-                tableBody.appendChild(row);
-            });
-            
-            // Add event listeners to action buttons
-            document.querySelectorAll('.edit-manpower').forEach(button => {
-                button.addEventListener('click', function() {
-                    const index = this.getAttribute('data-index');
-                    editManpower(index);
-                });
-            });
-            
-            document.querySelectorAll('.delete-manpower').forEach(button => {
-                button.addEventListener('click', function() {
-                    const index = this.getAttribute('data-index');
-                    deleteManpower(index);
-                });
-            });
-        }
-
-        // Update project table
-        function updateProjectTable() {
-            const tableBody = document.querySelector('#project-table tbody');
-            tableBody.innerHTML = '';
-            
-            if (projectData.length === 0) {
-                tableBody.innerHTML = '<tr><td colspan="9" class="text-center">No project data available. Import or add data to get started.</td></tr>';
-                return;
-            }
-            
-            projectData.forEach((project, index) {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td><input type="checkbox" class="project-checkbox" data-index="${index}"></td>
-                    <td>${project.id}</td>
-                    <td>${project.name}</td>
-                    <td>${project.costCenter}</td>
-                    <td>${project.department}</td>
-                    <td>${project.prePhase.start} to ${project.prePhase.finish}</td>
-                    <td>${project.mainPhase.start} to ${project.mainPhase.finish}</td>
-                    <td>${project.postPhase.start} to ${project.postPhase.finish}</td>
-                    <td>
-                        <button class="btn btn-sm btn-outline-primary me-1 edit-project" data-index="${index}"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm btn-outline-danger delete-project" data-index="${index}"><i class="fas fa-trash"></i></button>
-                    </td>
-                `;
-                tableBody.appendChild(row);
-            });
-            
-            // Add event listeners to action buttons
-            document.querySelectorAll('.edit-project').forEach(button => {
-                button.addEventListener('click', function() {
-                    const index = this.getAttribute('data-index');
-                    editProject(index);
-                });
-            });
-            
-            document.querySelectorAll('.delete-project').forEach(button => {
-                button.addEventListener('click', function() {
-                    const index = this.getAttribute('data-index');
-                    deleteProject(index);
-                });
-            });
-        }
-
-        // Edit manpower
-        function editManpower(index) {
-            const person = manpowerData[index];
-            // Populate the form
-            document.getElementById('name').value = person.name;
-            document.getElementById('badge').value = person.badge;
-            document.getElementById('company').value = person.company;
-            document.getElementById('craft').value = person.craft;
-            document.getElementById('joining-date').value = person.joining;
-            document.getElementById('release-date').value = person.release || '';
-            document.getElementById('vacation-in').value = person.vacationIn || '';
-            document.getElementById('vacation-out').value = person.vacationOut || '';
-            
-            // Change save button to update
-            const saveButton = document.getElementById('save-manpower');
-            saveButton.textContent = 'Update';
-            saveButton.onclick = function() {
-                // Update the manpower data
-                manpowerData[index] = {
-                    name: document.getElementById('name').value,
-                    badge: document.getElementById('badge').value,
-                    company: document.getElementById('company').value,
-                    craft: document.getElementById('craft').value,
-                    joining: document.getElementById('joining-date').value,
-                    release: document.getElementById('release-date').value || '',
-                    vacationIn: document.getElementById('vacation-in').value || '',
-                    vacationOut: document.getElementById('vacation-out').value || ''
-                };
-                
-                // Update table
-                updateManpowerTable();
-                
-                // Update dashboard
-                updateDashboard();
-                
-                alert('Manpower updated successfully!');
-                const modal = bootstrap.Modal.getInstance(document.getElementById('addManpowerModal'));
-                modal.hide();
-                
-                // Reset button text and functionality
-                saveButton.textContent = 'Save';
-                saveButton.onclick = saveManpower;
-            };
-            
-            // Show the modal
-            const modal = new bootstrap.Modal(document.getElementById('addManpowerModal'));
-            modal.show();
-        }
-
-        // Delete manpower
-        function deleteManpower(index) {
-            if (confirm('Are you sure you want to delete this manpower?')) {
-                manpowerData.splice(index, 1);
-                updateManpowerTable();
-                updateDashboard();
-                alert('Manpower deleted successfully!');
-            }
-        }
-
-        // Edit project
-        function editProject(index) {
-            const project = projectData[index];
-            // Populate the form
-            document.getElementById('project-id').value = project.id;
-            document.getElementById('project-name').value = project.name;
-            document.getElementById('cost-center').value = project.costCenter;
-            document.getElementById('department').value = project.department;
-            document.getElementById('pre-start').value = project.prePhase.start;
-            document.getElementById('pre-finish').value = project.prePhase.finish;
-            document.getElementById('main-start').value = project.mainPhase.start;
-            document.getElementById('main-finish').value = project.mainPhase.finish;
-            document.getElementById('post-start').value = project.postPhase.start;
-            document.getElementById('post-finish').value = project.postPhase.finish;
-            
-            // Change save button to update
-            const saveButton = document.getElementById('save-project');
-            saveButton.textContent = 'Update';
-            saveButton.onclick = function() {
-                // Update the project data
-                projectData[index] = {
-                    id: document.getElementById('project-id').value,
-                    name: document.getElementById('project-name').value,
-                    costCenter: document.getElementById('cost-center').value,
-                    department: document.getElementById('department').value,
-                    prePhase: { 
-                        start: document.getElementById('pre-start').value, 
-                        finish: document.getElementById('pre-finish').value,
-                        manpower: project.prePhase.manpower
-                    },
-                    mainPhase: { 
-                        start: document.getElementById('main-start').value, 
-                        finish: document.getElementById('main-finish').value,
-                        manpower: project.mainPhase.manpower
-                    },
-                    postPhase: { 
-                        start: document.getElementById('post-start').value, 
-                        finish: document.getElementById('post-finish').value,
-                        manpower: project.postPhase.manpower
-                    }
-                };
-                
-                // Update table
-                updateProjectTable();
-                
-                // Update dashboard
-                updateDashboard();
-                
-                alert('Project updated successfully!');
-                const modal = bootstrap.Modal.getInstance(document.getElementById('addProjectModal'));
-                modal.hide();
-                
-                // Reset button text and functionality
-                saveButton.textContent = 'Save';
-                saveButton.onclick = saveProject;
-            };
-            
-            // Show the modal
-            const modal = new bootstrap.Modal(document.getElementById('addProjectModal'));
-            modal.show();
-        }
-
-        // Delete project
-        function deleteProject(index) {
-            if (confirm('Are you sure you want to delete this project?')) {
-                projectData.splice(index, 1);
-                updateProjectTable();
-                updateDashboard();
-                alert('Project deleted successfully!');
-            }
-        }
-
-        // Run auto assignment
-        function runAutoAssignment() {
-            if (manpowerData.length === 0 || projectData.length === 0) {
-                alert('Please add manpower and projects before running assignment.');
-                return;
-            }
-            
-            // In a real application, this would be a complex algorithm
-            // For demonstration, we'll create sample assignment data
-            
-            assignmentData = [
-                {
-                    project: 'Refinery Maintenance',
-                    phase: 'Pre Phase',
-                    craft: 'Electrician',
-                    required: 2,
-                    assigned: 2,
-                    names: ['Ahmed Hassan', 'Mohammed Ali']
-                },
-                {
-                    project: 'Refinery Maintenance',
-                    phase: 'Pre Phase',
-                    craft: 'Welder',
-                    required: 1,
-                    assigned: 1,
-                    names: ['Omar Khan']
-                },
-                {
-                    project: 'Pipeline Installation',
-                    phase: 'Main Phase',
-                    craft: 'Operator',
-                    required: 3,
-                    assigned: 2,
-                    names: ['Ibrahim Mohamed', 'Abdullah Saleh']
-                }
-            ];
-            
-            // Generate some shortage data
-            shortageData = [
-                {
-                    craft: 'Operator',
-                    period: 'Next 3 Months',
-                    available: 2,
-                    demand: 5,
-                    shortage: 3,
-                    start: '01-Apr-23',
-                    finish: '30-Jun-23'
-                },
-                {
-                    craft: 'Technician',
-                    period: 'Next 2 Months',
-                    available: 3,
-                    demand: 5,
-                    shortage: 2,
-                    start: '01-May-23',
-                    finish: '30-Jun-23'
-                }
-            ];
-            
-            updateAssignmentTable();
-            updateShortageTable();
-            updateDashboard();
-            
-            alert('Auto assignment completed!');
-        }
-
-        // Update assignment table
-        function updateAssignmentTable() {
-            const tableBody = document.querySelector('#assignment-table tbody');
-            tableBody.innerHTML = '';
-            
-            if (assignmentData.length === 0) {
-                tableBody.innerHTML = '<tr><td colspan="6" class="text-center">No assignment data available. Run auto assignment to generate results.</td></tr>';
-                return;
-            }
-            
-            assignmentData.forEach(assignment => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${assignment.project}</td>
-                    <td>${assignment.phase}</td>
-                    <td>${assignment.craft}</td>
-                    <td>${assignment.required}</td>
-                    <td>${assignment.assigned}</td>
-                    <td>${assignment.names.join(', ')}</td>
-                `;
-                
-                if (assignment.assigned < assignment.required) {
-                    row.classList.add('highlight');
-                }
-                
-                tableBody.appendChild(row);
-            });
-        }
-
-        // Update shortage table
-        function updateShortageTable() {
-            const tableBody = document.querySelector('#shortage-table tbody');
-            tableBody.innerHTML = '';
-            
-            if (shortageData.length === 0) {
-                tableBody.innerHTML = '<tr><td colspan="7" class="text-center">No shortage data available. Run auto assignment to generate shortage report.</td></tr>';
-                return;
-            }
-            
-            // Apply filters
-            const craftFilter = document.getElementById('shortage-craft').value;
-            const periodFilter = document.getElementById('shortage-period').value;
-            
-            let filteredData = shortageData;
-            
-            if (craftFilter !== 'all') {
-                filteredData = filteredData.filter(item => item.craft === craftFilter);
-            }
-            
-            if (periodFilter !== 'all') {
-                // In a real application, you would filter by date range
-                filteredData = filteredData.filter(item => item.period.includes(periodFilter + ' Month') || item.period.includes('Months'));
-            }
-            
-            if (filteredData.length === 0) {
-                tableBody.innerHTML = '<tr><td colspan="7" class="text-center">No shortage data matches the selected filters.</td></tr>';
-                return;
-            }
-            
-            filteredData.forEach(shortage => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${shortage.craft}</td>
-                    <td>${shortage.period}</td>
-                    <td>${shortage.available</td>
-                    <td>${shortage.demand}</td>
-                    <td><span class="badge bg-danger">${shortage.shortage}</span></td>
-                    <td>${shortage.start}</td>
-                    <td>${shortage.finish}</td>
-                `;
-                tableBody.appendChild(row);
-            });
-        }
-
-        // Calculate utilization rate
-        function calculateUtilizationRate() {
-            if (assignmentData.length === 0) return 0;
-            
-            const totalAssigned = assignmentData.reduce((sum, item) => sum + item.assigned, 0);
-            const totalRequired = assignmentData.reduce((sum, item) => sum + item.required, 0);
-            
-            return totalRequired > 0 ? Math.round((totalAssigned / totalRequired) * 100) : 0;
-        }
-
-        // Update dashboard
-        function updateDashboard() {
-            // Update stats
-            const currentManpowerCount = manpowerData.length;
-            const currentProjectCount = projectData.length;
-            const currentShortageCount = shortageData.reduce((sum, item) => sum + item.shortage, 0);
-            const currentUtilizationRate = calculateUtilizationRate();
-            
-            document.getElementById('total-manpower').textContent = currentManpowerCount;
-            document.getElementById('total-projects').textContent = currentProjectCount;
-            document.getElementById('shortage-count').textContent = currentShortageCount;
-            document.getElementById('utilization-rate').textContent = `${currentUtilizationRate}%`;
-            
-            // Update trend indicators
-            document.getElementById('manpower-trend').textContent = getTrendText(currentManpowerCount, previousManpowerCount, 'manpower');
-            document.getElementById('projects-trend').textContent = getTrendText(currentProjectCount, previousProjectCount, 'projects');
-            document.getElementById('shortage-trend').textContent = getTrendText(currentShortageCount, previousShortageCount, 'shortage');
-            document.getElementById('utilization-trend').textContent = getTrendText(currentUtilizationRate, previousUtilizationRate, 'utilization');
-            
-            // Update previous values
-            previousManpowerCount = currentManpowerCount;
-            previousProjectCount = currentProjectCount;
-            previousShortageCount = currentShortageCount;
-            previousUtilizationRate = currentUtilizationRate;
-            
-            // Update charts
-            updateCharts();
-            
-            // Update vacation list
-            updateVacationList();
-            
-            // Update recent assignments
-            updateRecentAssignments();
-        }
-
-        // Get trend text
-        function getTrendText(current, previous, type) {
-            if (previous === 0) return 'New';
-            
-            const difference = current - previous;
-            const percentage = Math.round((difference / previous) * 100);
-            
-            if (difference === 0) return 'No change';
-            
-            if (type === 'shortage') {
-                return difference > 0 ? `+${percentage}% increase` : `${Math.abs(percentage)}% decrease`;
-            } else {
-                return difference > 0 ? `+${percentage}% from last update` : `${Math.abs(percentage)}% from last update`;
-            }
-        }
-
-        // Update charts
-        function updateCharts() {
-            // Update craft chart
-            const craftData = {
-                'Electrician': 0,
-                'Welder': 0,
-                'Technician': 0,
-                'Mechanic': 0,
-                'Operator': 0
-            };
-            
-            manpowerData.forEach(person => {
-                if (craftData.hasOwnProperty(person.craft)) {
-                    craftData[person.craft]++;
-                }
-            });
-            
-            window.craftChart.data.datasets[0].data = [
-                craftData.Electrician,
-                craftData.Welder,
-                craftData.Technician,
-                craftData.Mechanic,
-                craftData.Operator
-            ];
-            window.craftChart.update();
-            
-            // Update company chart
-            const companyData = {
-                'In-house': 0,
-                'Qiwa': 0,
-                'Local Hire': 0
-            };
-            
-            manpowerData.forEach(person => {
-                if (companyData.hasOwnProperty(person.company)) {
-                    companyData[person.company]++;
-                }
-            });
-            
-            window.companyChart.data.datasets[0].data = [
-                companyData['In-house'],
-                companyData.Qiwa,
-                companyData['Local Hire']
-            ];
-            window.companyChart.update();
-            
-            // Update timeline chart (simplified for demo)
-            const monthData = [0, 0, projectData.length, projectData.length, projectData.length, projectData.length, projectData.length, projectData.length, projectData.length, 0, 0, 0];
-            window.timelineChart.data.datasets[0].data = monthData;
-            window.timelineChart.update();
-            
-            // Update utilization chart (simplified for demo)
-            const utilizationData = [0, 0, 0, currentUtilizationRate, currentUtilizationRate, currentUtilizationRate, currentUtilizationRate, currentUtilizationRate, currentUtilizationRate, 0, 0, 0];
-            window.utilizationChart.data.datasets[0].data = utilizationData;
-            window.utilizationChart.update();
-        }
-
-        // Update vacation list
-        function updateVacationList() {
-            const vacationList = document.getElementById('vacation-list');
-            vacationList.innerHTML = '';
-            
-            const upcomingVacations = manpowerData
-                .filter(person => person.vacationOut)
-                .slice(0, 5);
-            
-            if (upcomingVacations.length === 0) {
-                vacationList.innerHTML = '<tr><td colspan="4" class="text-center">No upcoming vacations</td></tr>';
-            } else {
-                upcomingVacations.forEach(person => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${person.name}</td>
-                        <td>${person.craft}</td>
-                        <td>${person.vacationOut}</td>
-                        <td><span class="badge bg-warning">14</span></td>
-                    `;
-                    vacationList.appendChild(row);
-                });
-            }
-        }
-
-        // Update recent assignments
-        function updateRecentAssignments() {
-            const recentAssignments = document.getElementById('recent-assignments');
-            recentAssignments.innerHTML = '';
-            
-            if (assignmentData.length === 0) {
-                recentAssignments.innerHTML = '<tr><td colspan="6" class="text-center">No assignments yet</td></tr>';
-            } else {
-                assignmentData.slice(0, 4).forEach(assignment => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${assignment.project}</td>
-                        <td>${assignment.phase}</td>
-                        <td>${assignment.craft}</td>
-                        <td>${assignment.required}</td>
-                        <td>${assignment.assigned}</td>
-                        <td>${assignment.assigned < assignment.required ? '<span class="badge bg-warning">Shortage</span>' : '<span class="badge bg-success">Complete</span>'}</td>
-                    `;
-                    recentAssignments.appendChild(row);
-                });
-            }
-        }
-
-        // Export to Excel function
-        function exportToExcel(data, fileName) {
-            // Convert data to worksheet
-            const ws = XLSX.utils.json_to_sheet(data);
-            
-            // Create workbook
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, "Data");
-            
-            // Generate Excel file
-            XLSX.writeFile(wb, `${fileName}.xlsx`);
-            
-            alert(`Exported ${fileName} successfully!`);
-        }
-
-        // Helper function to get badge class based on company type
-        function getCompanyBadgeClass(company) {
-            switch (company) {
-                case 'In-house': return 'bg-primary';
-                case 'Qiwa': return 'bg-warning text-dark';
-                case 'Local Hire': return 'bg-info text-dark';
-                default: return 'bg-secondary';
-            }
-        }
+        });
     </script>
 </body>
 </html>
