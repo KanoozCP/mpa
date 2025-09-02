@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Manpower Assignment </title>
+<title>Manpower Assignment</title>
 
 <!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -33,9 +33,6 @@
         <h1 class="text-xl font-bold text-indigo-700">Manpower Assignment</h1>
         <p class="text-xs text-gray-500">Kanooz Industrial Services — Central Planning</p>
       </div>
-    </div>
-    <div class="flex gap-2">
-      <button id="helpBtn" class="px-3 py-2 rounded bg-gray-100 text-gray-700">Help</button>
     </div>
   </header>
 
@@ -142,12 +139,11 @@
             <button id="projImportBtn" class="px-3 py-2 rounded bg-indigo-600 text-white">Import Projects</button>
             <button id="projClearBtn" class="px-3 py-2 rounded bg-red-50 text-red-600 border">Clear all</button>
           </div>
-          <p class="text-xs text-gray-500 mt-2">Project sheet columns should include: name, dept, costCenter, start, finish, requirements (optional - free text)</p>
+          <p class="text-xs text-gray-500 mt-2">Project sheet columns should include: name, dept, costCenter, start, finish, requirements (optional)</p>
         </div>
 
         <div class="card p-4">
           <h3 class="font-semibold mb-2">Add Project</h3>
-
           <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
             <input id="projName" placeholder="Project Name" class="p-2 border rounded"/>
             <div class="flex gap-2">
@@ -159,7 +155,6 @@
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <!-- Main -->
             <div class="p-2 border rounded bg-gray-50 space-y-1">
               <div class="font-medium">Main</div>
               <input id="reqMainCraft" placeholder="Craft" class="p-2 border rounded w-full"/>
@@ -167,8 +162,6 @@
               <input id="reqMainStart" type="date" class="p-2 border rounded w-full"/>
               <input id="reqMainFinish" type="date" class="p-2 border rounded w-full"/>
             </div>
-
-            <!-- Pre -->
             <div class="p-2 border rounded bg-gray-50 space-y-1">
               <div class="font-medium">Pre-TA</div>
               <input id="reqPreCraft" placeholder="Craft" class="p-2 border rounded w-full"/>
@@ -176,8 +169,6 @@
               <input id="reqPreStart" type="date" class="p-2 border rounded w-full"/>
               <input id="reqPreFinish" type="date" class="p-2 border rounded w-full"/>
             </div>
-
-            <!-- Post -->
             <div class="p-2 border rounded bg-gray-50 space-y-1">
               <div class="font-medium">Post</div>
               <input id="reqPostCraft" placeholder="Craft" class="p-2 border rounded w-full"/>
@@ -187,570 +178,188 @@
             </div>
           </div>
 
-          <div class="text-right mt-3">
-            <button id="addReqBtn" class="px-3 py-2 rounded bg-indigo-600 text-white mr-2">Add Requirement</button>
-            <button id="saveProjBtn" class="px-3 py-2 rounded bg-orange-500 text-white">Save Project</button>
+          <div class="text-right mt-2">
+            <button id="addProjBtn" class="px-3 py-2 rounded bg-orange-500 text-white">Add Project</button>
           </div>
-
-          <div id="reqList" class="mt-3 table-scroll p-2 border rounded bg-white max-h-36"></div>
         </div>
       </div>
 
       <div class="card p-4">
         <h3 class="font-semibold mb-2">Project List</h3>
-        <div id="projectList" class="table-scroll"></div>
+        <div id="projectTable" class="table-scroll"></div>
       </div>
     </section>
 
     <!-- AI Scheduler -->
     <section id="ai" class="tab-content hidden mt-2">
       <div class="card p-4">
-        <h3 class="font-semibold mb-2">AI Scheduler (Demo Auto-assign)</h3>
-        <p class="text-xs text-gray-500 mb-2">Algorithm: assign by craft earliest-project-first, respect join/release dates.</p>
-        <div class="flex gap-2 mb-3">
-          <button id="computeAssignBtn" class="px-3 py-2 rounded bg-indigo-600 text-white">Compute Assignments</button>
-          <button id="exportAssignBtn" class="px-3 py-2 rounded bg-green-600 text-white">Export Assignments</button>
-        </div>
-        <div id="assignmentsArea" class="table-scroll border rounded p-2 max-h-64"></div>
+        <h3 class="font-semibold mb-2">AI Scheduler</h3>
+        <p class="text-xs text-gray-500 mb-2">Automatically assign available manpower to projects based on availability, vacation, and requirements.</p>
+        <button id="runScheduler" class="px-3 py-2 rounded bg-indigo-600 text-white">Run Scheduler</button>
+        <div id="aiOutput" class="mt-2 table-scroll"></div>
       </div>
     </section>
 
-    <!-- Reports & Export (restore original behavior) -->
+    <!-- Reports -->
     <section id="reports" class="tab-content hidden mt-2">
       <div class="card p-4">
-        <h3 class="font-semibold mb-2">Export Options</h3>
-        <div class="flex flex-col md:flex-row gap-2">
-          <button id="exportManpowerBtn" class="px-3 py-2 rounded bg-indigo-600 text-white">Export Manpower</button>
-          <button id="exportProjectsBtn" class="px-3 py-2 rounded bg-indigo-600 text-white">Export Projects & Requirements</button>
-          <button id="exportShortageBtn2" class="px-3 py-2 rounded bg-orange-500 text-white">Export Shortage</button>
-          <button id="exportAssignmentsBtn2" class="px-3 py-2 rounded bg-green-600 text-white">Export Assignments</button>
+        <h3 class="font-semibold mb-2">Reports & Export</h3>
+        <div class="flex gap-2 flex-wrap">
+          <button id="exportManpower" class="px-3 py-2 rounded bg-indigo-600 text-white">Export Manpower</button>
+          <button id="exportProjects" class="px-3 py-2 rounded bg-indigo-600 text-white">Export Projects</button>
+          <button id="exportShortage" class="px-3 py-2 rounded bg-indigo-600 text-white">Export Shortage</button>
         </div>
       </div>
     </section>
 
-    <!-- Shortage (restore original layout) -->
+    <!-- Shortage -->
     <section id="shortage" class="tab-content hidden mt-2">
       <div class="card p-4">
-        <h3 class="font-semibold mb-2">Craft-wise Shortage (1-6 Months)</h3>
-        <select id="shortageDuration" class="p-2 border rounded mb-2 w-32">
-          <option value="1">1 Month</option>
-          <option value="2">2 Months</option>
-          <option value="3">3 Months</option>
-          <option value="4">4 Months</option>
-          <option value="5">5 Months</option>
-          <option value="6">6 Months</option>
-        </select>
-        <div id="shortageTable" class="table-scroll border rounded p-2 max-h-64"></div>
-        <div class="mt-3">
-          <button id="exportShortageBtn" class="px-3 py-2 rounded bg-orange-500 text-white">Export Shortage</button>
-        </div>
+        <h3 class="font-semibold mb-2">Manpower Shortage</h3>
+        <div id="shortageTable" class="table-scroll"></div>
       </div>
     </section>
 
   </main>
-
-  <footer class="mt-6 text-center text-xs text-gray-500">Designed by KANOOZ Central Planning</footer>
 </div>
 
 <script>
-/* --------------------------
-  Persistent state & helpers
-----------------------------*/
-const STORAGE_KEY = 'cp_manpower_final_v2';
-let state = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null') || {manpower:[], projects:[], assignments:[]};
-let currentReqs = []; // requirements being built for project
+  // ---------- Tabs ----------
+  const tabs = document.querySelectorAll('.tab-btn');
+  const contents = document.querySelectorAll('.tab-content');
+  tabs.forEach(tab=>{
+    tab.addEventListener('click',()=> {
+      tabs.forEach(t=>t.classList.remove('tab-active'));
+      tab.classList.add('tab-active');
+      contents.forEach(c=>c.classList.add('hidden'));
+      document.getElementById(tab.dataset.tab).classList.remove('hidden');
+    });
+  });
 
-function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
-function uid(prefix='id'){ return prefix+'-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,6); }
-function parseDate(d){ if(!d) return null; const x=new Date(d); return isNaN(x)?null:x; }
-function formatDate(d){ if(!d) return '-'; const dt=parseDate(d); if(!dt) return '-'; return dt.toISOString().slice(0,10); }
+  // ---------- Data ----------
+  let manpower=[], projects=[];
 
-/* --------------------------
-  Tabs (top nav) + persistence
-----------------------------*/
-const tabBtns = document.querySelectorAll('.tab-btn');
-const tabContents = document.querySelectorAll('.tab-content');
-const lastTab = localStorage.getItem('cp_last_tab') || 'dashboard';
-function activateTab(id){
-  tabBtns.forEach(b=>b.classList.remove('tab-active'));
-  tabContents.forEach(c=>c.classList.add('hidden'));
-  const btn = Array.from(tabBtns).find(x=>x.dataset.tab===id);
-  if(btn) btn.classList.add('tab-active');
-  const section=document.getElementById(id);
-  if(section) section.classList.remove('hidden');
-  localStorage.setItem('cp_last_tab', id);
-}
-tabBtns.forEach(b=>b.addEventListener('click', ()=> activateTab(b.dataset.tab)));
-activateTab(lastTab);
-
-/* --------------------------
-  MANPOWER: render, add, import, clear
-----------------------------*/
-const manpowerTable = document.getElementById('manpowerTable');
-function renderManpower(){
-  manpowerTable.innerHTML = '';
-  if(state.manpower.length===0){
-    manpowerTable.innerHTML = '<div class="p-2 text-sm text-gray-500">No manpower yet.</div>';
-    return;
+  // ---------- Render Functions ----------
+  function renderManpower(){
+    let html=`<table class="min-w-full border text-xs"><thead class="bg-gray-100">
+    <tr><th class="border p-1">Name</th><th class="border p-1">Craft</th><th class="border p-1">Badge</th><th class="border p-1">Company</th>
+    <th class="border p-1">Join</th><th class="border p-1">Release</th><th class="border p-1">Vacation Start</th><th class="border p-1">Vacation End</th></tr></thead><tbody>`;
+    manpower.forEach(m=>{
+      html+=`<tr>
+      <td class="border p-1">${m.name}</td><td class="border p-1">${m.craft}</td><td class="border p-1">${m.badge}</td><td class="border p-1">${m.company}</td>
+      <td class="border p-1">${m.join}</td><td class="border p-1">${m.release}</td><td class="border p-1">${m.vacationStart||''}</td><td class="border p-1">${m.vacationEnd||''}</td>
+      </tr>`;
+    });
+    html+='</tbody></table>';
+    document.getElementById('manpowerTable').innerHTML=html;
+    document.getElementById('totalManpower').innerText=manpower.length;
   }
-  state.manpower.forEach(m=>{
-    const row = document.createElement('div');
-    row.className = 'flex items-center justify-between p-2 border-b';
-    row.innerHTML = `
-      <div class="text-sm">
-        <div class="font-medium">${m.name}</div>
-        <div class="text-xs text-gray-500">${m.craft} • ${m.company} • Badge: ${m.badge}</div>
-        <div class="text-xs text-gray-400">${formatDate(m.join)} → ${formatDate(m.release)} • Vac: ${formatDate(m.vacationStart)}→${formatDate(m.vacationEnd)}</div>
-      </div>
-      <div class="flex flex-col gap-1 items-end">
-        <button data-id="${m.id}" class="del-mp text-xs text-red-600">Remove</button>
-      </div>
-    `;
-    manpowerTable.appendChild(row);
-  });
-  document.querySelectorAll('.del-mp').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      state.manpower = state.manpower.filter(x=>x.id!==btn.dataset.id);
-      saveState(); renderManpower(); updateDashboard(); computeAssignments();
+
+  function renderProjects(){
+    let html=`<table class="min-w-full border text-xs"><thead class="bg-gray-100">
+    <tr><th class="border p-1">Name</th><th class="border p-1">Dept</th><th class="border p-1">Cost Center</th><th class="border p-1">Start</th><th class="border p-1">Finish</th><th class="border p-1">Requirements</th></tr></thead><tbody>`;
+    projects.forEach(p=>{
+      let reqs=p.requirements?JSON.stringify(p.requirements):'';
+      html+=`<tr>
+      <td class="border p-1">${p.name}</td><td class="border p-1">${p.dept}</td><td class="border p-1">${p.costCenter}</td><td class="border p-1">${p.start}</td><td class="border p-1">${p.finish}</td><td class="border p-1">${reqs}</td>
+      </tr>`;
     });
-  });
-  updateDashboard();
-}
+    html+='</tbody></table>';
+    document.getElementById('projectTable').innerHTML=html;
+    document.getElementById('totalProjects').innerText=projects.length;
+  }
 
-document.getElementById('addMpBtn').addEventListener('click', ()=>{
-  const m = {
-    id: uid('M'),
-    name: document.getElementById('mpName').value.trim(),
-    craft: document.getElementById('mpCraft').value.trim(),
-    badge: document.getElementById('mpBadge').value.trim(),
-    company: document.getElementById('mpCompany').value,
-    join: document.getElementById('mpJoin').value,
-    release: document.getElementById('mpRelease').value,
-    vacationStart: document.getElementById('mpVacationStart').value || null,
-    vacationEnd: document.getElementById('mpVacationEnd').value || null
-  };
-  if(!m.name||!m.craft||!m.badge||!m.join||!m.release){ alert('Fill mandatory fields: name, craft, badge, join & release.'); return; }
-  state.manpower.push(m);
-  saveState(); renderManpower(); clearMpInputs(); computeAssignments();
-});
-function clearMpInputs(){
-  ['mpName','mpCraft','mpBadge','mpJoin','mpRelease','mpVacationStart','mpVacationEnd'].forEach(id=>document.getElementById(id).value='');
-}
-
-/* Import manpower */
-document.getElementById('mpImportBtn').addEventListener('click', ()=> {
-  const f = document.getElementById('mpImportFile').files[0];
-  if(!f){ alert('Select a file first'); return; }
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    const data = e.target.result;
-    const wb = XLSX.read(data, {type:'binary'});
-    const sheet = wb.Sheets[wb.SheetNames[0]];
-    const js = XLSX.utils.sheet_to_json(sheet, {defval:''});
-    // Expect columns: name, craft, badge, company, join, release, vacationStart, vacationEnd
-    js.forEach(row=>{
-      const m = {
-        id: uid('M'),
-        name: row.name || row.Name || '',
-        craft: row.craft || row.Craft || '',
-        badge: row.badge || row.Badge || '',
-        company: row.company || row.Company || 'In-house',
-        join: row.join || row.Join || '',
-        release: row.release || row.Release || '',
-        vacationStart: row.vacationStart || row.VacationStart || '',
-        vacationEnd: row.vacationEnd || row.VacationEnd || ''
-      };
-      if(m.name && m.craft && m.badge && m.join && m.release) state.manpower.push(m);
-    });
-    saveState(); renderManpower(); computeAssignments();
-    alert('Import complete (rows with missing mandatory fields were skipped).');
-  };
-  reader.readAsBinaryString(f);
-});
-document.getElementById('mpClearBtn').addEventListener('click', ()=>{
-  if(!confirm('Clear all manpower?')) return;
-  state.manpower=[]; saveState(); renderManpower(); computeAssignments();
-});
-
-/* --------------------------
-  PROJECTS: add req, save project, import, clear, render
-----------------------------*/
-const reqList = document.getElementById('reqList');
-const projectList = document.getElementById('projectList');
-
-function renderReqList(){
-  reqList.innerHTML='';
-  if(currentReqs.length===0){ reqList.innerHTML = '<div class="text-sm text-gray-500 p-2">No requirements added.</div>'; return; }
-  currentReqs.forEach((r,i)=>{
-    const d = document.createElement('div');
-    d.className='p-2 border-b text-xs';
-    d.innerHTML = `<div class="font-medium">${r.main.craft} — Main ${r.main.qty} [${formatDate(r.main.start)}→${formatDate(r.main.finish)}]</div>
-      <div class="text-xs text-gray-600">Pre: ${r.pre.craft || '-'} (${r.pre.qty}) [${formatDate(r.pre.start)}→${formatDate(r.pre.finish)}] • Post: ${r.post.craft || '-'} (${r.post.qty}) [${formatDate(r.post.start)}→${formatDate(r.post.finish)}]</div>
-      <div class="text-right mt-1"><button data-i="${i}" class="rm-req text-xs text-red-600">Remove</button></div>`;
-    reqList.appendChild(d);
-  });
-  document.querySelectorAll('.rm-req').forEach(btn=>btn.addEventListener('click', ()=>{
-    currentReqs.splice(btn.dataset.i,1); renderReqList();
-  }));
-}
-
-document.getElementById('addReqBtn').addEventListener('click', ()=>{
-  const r = {
-    main: {
-      craft: document.getElementById('reqMainCraft').value.trim(),
-      qty: Number(document.getElementById('reqMainQty').value || 0),
-      start: document.getElementById('reqMainStart').value || null,
-      finish: document.getElementById('reqMainFinish').value || null
-    },
-    pre: {
-      craft: document.getElementById('reqPreCraft').value.trim(),
-      qty: Number(document.getElementById('reqPreQty').value || 0),
-      start: document.getElementById('reqPreStart').value || null,
-      finish: document.getElementById('reqPreFinish').value || null
-    },
-    post: {
-      craft: document.getElementById('reqPostCraft').value.trim(),
-      qty: Number(document.getElementById('reqPostQty').value || 0),
-      start: document.getElementById('reqPostStart').value || null,
-      finish: document.getElementById('reqPostFinish').value || null
-    }
-  };
-  if(!r.main.craft || !r.main.qty || !r.main.start || !r.main.finish){ alert('Main craft, qty, start & finish are required.'); return; }
-  currentReqs.push(r); renderReqList(); // keep inputs for quick reuse
-});
-
-/* Save Project */
-document.getElementById('saveProjBtn').addEventListener('click', ()=>{
-  const p = {
-    id: uid('P'),
-    name: document.getElementById('projName').value.trim(),
-    dept: document.getElementById('projDept').value.trim(),
-    costCenter: document.getElementById('projCostCenter').value.trim(),
-    start: document.getElementById('projStart').value,
-    finish: document.getElementById('projFinish').value,
-    requirements: JSON.parse(JSON.stringify(currentReqs)) // deep copy
-  };
-  if(!p.name || !p.start || !p.finish){ alert('Project name, start & finish required.'); return; }
-  state.projects.push(p);
-  currentReqs = []; renderReqList(); renderProjects(); saveState(); updateDashboard(); computeAssignments();
-  // clear proj inputs
-  ['projName','projDept','projCostCenter','projStart','projFinish'].forEach(id=>document.getElementById(id).value='');
-});
-
-/* Render projects list */
-function renderProjects(){
-  projectList.innerHTML = '';
-  if(state.projects.length===0){ projectList.innerHTML = '<div class="p-2 text-sm text-gray-500">No projects yet.</div>'; return; }
-  state.projects.forEach(p=>{
-    const d = document.createElement('div');
-    d.className='p-3 border-b';
-    d.innerHTML = `<div class="font-medium">${p.name} <span class="text-xs text-gray-400">(${p.dept || '-'})</span></div>
-      <div class="text-xs text-gray-500">${formatDate(p.start)} → ${formatDate(p.finish)} • ${p.costCenter || '-'}</div>
-      <div class="text-xs mt-1">${p.requirements.map(r=>`${r.main.craft}: M${r.main.qty} P${r.pre.qty} O${r.post.qty}`).join(' | ')}</div>
-      <div class="mt-2"><button data-id="${p.id}" class="del-proj text-xs text-red-600">Remove</button></div>`;
-    projectList.appendChild(d);
-  });
-  document.querySelectorAll('.del-proj').forEach(btn=>btn.addEventListener('click', ()=>{
-    if(!confirm('Remove project?')) return;
-    state.projects = state.projects.filter(x=>x.id!==btn.dataset.id); saveState(); renderProjects(); updateDashboard(); computeAssignments();
-  }));
-}
-
-/* Import projects */
-document.getElementById('projImportBtn').addEventListener('click', ()=>{
-  const f = document.getElementById('projImportFile').files[0];
-  if(!f){ alert('Select a file'); return; }
-  const reader = new FileReader();
-  reader.onload = (e)=>{
-    const data = e.target.result;
-    const wb = XLSX.read(data, {type:'binary'});
-    const sheet = wb.Sheets[wb.SheetNames[0]];
-    const js = XLSX.utils.sheet_to_json(sheet, {defval:''});
-    js.forEach(row=>{
-      // Here we treat each row as a project; requirements parsing is left to manual add for accuracy
-      const p = {
-        id: uid('P'),
-        name: row.name || row.Name || ('Project-'+Date.now()),
-        dept: row.dept || row.Dept || '',
-        costCenter: row.costCenter || row.CostCenter || '',
-        start: row.start || row.Start || '',
-        finish: row.finish || row.Finish || '',
-        requirements: [] // keep empty; user can add
-      };
-      if(p.name && p.start && p.finish) state.projects.push(p);
-    });
-    saveState(); renderProjects(); updateDashboard();
-    alert('Projects imported. Requirements must be added via UI.');
-  };
-  reader.readAsBinaryString(f);
-});
-document.getElementById('projClearBtn').addEventListener('click', ()=>{
-  if(!confirm('Clear all projects?')) return;
-  state.projects=[]; saveState(); renderProjects(); updateDashboard(); computeAssignments();
-});
-
-/* --------------------------
-  ASSIGNMENTS: simple heuristic
-----------------------------*/
-function computeAssignments(){
-  // Basic deterministic assignment:
-  // For each project (by start date ascending), for each requirement block (main, pre, post),
-  // assign available manpower of matching craft whose join<=req.start and release>=req.finish (and not already assigned overlapping)
-  state.assignments = []; // reset
-  // Build a map of manpower availability and their assigned intervals
-  const workerMap = {};
-  state.manpower.forEach(m=>{
-    workerMap[m.id] = {info:m, assignments:[]};
-  });
-
-  // flatten project requirements with category label
-  const projReqs = [];
-  state.projects.forEach(p=>{
-    p.requirements.forEach(r=>{
-      projReqs.push({projectId:p.id, projectName:p.name, type:'Main', craft:r.main.craft, qty:r.main.qty, start:r.main.start, finish:r.main.finish});
-      if(r.pre && r.pre.qty>0) projReqs.push({projectId:p.id, projectName:p.name, type:'Pre', craft:r.pre.craft || r.main.craft, qty:r.pre.qty, start:r.pre.start, finish:r.pre.finish});
-      if(r.post && r.post.qty>0) projReqs.push({projectId:p.id, projectName:p.name, type:'Post', craft:r.post.craft || r.main.craft, qty:r.post.qty, start:r.post.start, finish:r.post.finish});
-    });
-  });
-  // sort by start date
-  projReqs.sort((a,b)=> (new Date(a.start||'9999-12-31')) - (new Date(b.start||'9999-12-31')) );
-
-  projReqs.forEach(req=>{
-    if(!req.craft || !req.start || !req.finish) return;
-    const reqStart = parseDate(req.start);
-    const reqFinish = parseDate(req.finish);
-    // find eligible workers
-    const eligible = Object.values(workerMap).filter(w=>{
-      const join = parseDate(w.info.join);
-      const release = parseDate(w.info.release);
-      if(!join || !release) return false;
-      if(join > reqStart || release < reqFinish) return false;
-      // check not assigned overlapping
-      for(const asg of w.assignments){
-        const aStart = parseDate(asg.start), aFinish = parseDate(asg.finish);
-        if(!(reqFinish < aStart || reqStart > aFinish)) return false; // overlap
-      }
-      // craft match (case-insensitive)
-      if((w.info.craft||'').toLowerCase() !== (req.craft||'').toLowerCase()) return false;
-      return true;
-    });
-
-    // assign up to qty from eligible
-    for(let i=0;i<req.qty && eligible.length>0;i++){
-      const w = eligible.shift();
-      const asg = { assignmentId: uid('A'), workerId: w.info.id, workerName: w.info.name, projectId: req.projectId, projectName: req.projectName, craft: req.craft, start: req.start, finish: req.finish, type: req.type };
-      state.assignments.push(asg);
-      w.assignments.push({start:req.start, finish:req.finish});
-    }
-  });
-
-  saveState(); renderAssignments();
-}
-
-/* Render assignments */
-function renderAssignments(){
-  const div = document.getElementById('assignmentsArea');
-  div.innerHTML = '';
-  if(!state.assignments || state.assignments.length===0){ div.innerHTML = '<div class="text-sm text-gray-500 p-2">No assignments yet. Click Compute Assignments.</div>'; return; }
-  state.assignments.forEach(a=>{
-    const el = document.createElement('div');
-    el.className = 'p-2 border-b text-xs';
-    el.innerHTML = `<div class="font-medium">${a.workerName} → ${a.projectName} (${a.craft})</div>
-      <div class="text-gray-500">${a.type} • ${formatDate(a.start)} → ${formatDate(a.finish)}</div>`;
-    div.appendChild(el);
-  });
-}
-
-/* Buttons */
-document.getElementById('computeAssignBtn').addEventListener('click', ()=>{ computeAssignments(); alert('Assignments computed (demo heuristic).'); });
-document.getElementById('exportAssignBtn').addEventListener('click', ()=> exportAssignments());
-document.getElementById('exportAssignmentsBtn2').addEventListener('click', ()=> exportAssignments());
-
-function exportAssignments(){
-  if(!state.assignments || state.assignments.length===0){ alert('No assignments to export'); return; }
-  const wb = XLSX.utils.book_new();
-  const rows = state.assignments.map(a=>({
-    AssignmentId: a.assignmentId,
-    WorkerName: a.workerName,
-    WorkerId: a.workerId,
-    ProjectName: a.projectName,
-    ProjectId: a.projectId,
-    Craft: a.craft,
-    Type: a.type,
-    Start: a.start,
-    Finish: a.finish
-  }));
-  const ws = XLSX.utils.json_to_sheet(rows);
-  XLSX.utils.book_append_sheet(wb, ws, 'Assignments');
-  XLSX.writeFile(wb, 'Assignments.xlsx');
-}
-
-/* --------------------------
-  DASHBOARD: charts & update
-----------------------------*/
-let craftChart=null, projectPeakChart=null, projectDurationChart=null;
-function updateDashboard(){
-  // counts
-  document.getElementById('totalManpower').innerText = state.manpower.length;
-  document.getElementById('totalProjects').innerText = state.projects.length;
-  // total peak = sum of all reqs all projects
-  let peak=0;
-  state.projects.forEach(p=> p.requirements.forEach(r => { peak += Number(r.main.qty||0) + Number(r.pre.qty||0) + Number(r.post.qty||0); }));
-  document.getElementById('totalPeak').innerText = peak;
-
-  // craft-wise manpower
-  const craftCounts = {};
-  state.manpower.forEach(m => { const c = (m.craft||'').trim()||'Unknown'; craftCounts[c] = (craftCounts[c]||0)+1; });
-  const craftLabels = Object.keys(craftCounts), craftData = craftLabels.map(l=>craftCounts[l]);
-  if(craftChart) craftChart.destroy();
-  craftChart = new Chart(document.getElementById('craftChart'), { type:'bar', data:{labels:craftLabels, datasets:[{label:'Count', data:craftData}]}, options:{plugins:{legend:{display:false}}} });
-
-  // project peak per project
-  const projLabels = state.projects.map(p => p.name);
-  const projPeaks = state.projects.map(p => p.requirements.reduce((s,r)=>s + Number(r.main.qty||0) + Number(r.pre.qty||0) + Number(r.post.qty||0), 0));
-  if(projectPeakChart) projectPeakChart.destroy();
-  projectPeakChart = new Chart(document.getElementById('projectPeakChart'), { type:'bar', data:{labels:projLabels, datasets:[{label:'Peak', data:projPeaks}]}, options:{plugins:{legend:{display:false}}} });
-
-  // project durations
-  const projDur = state.projects.map(p=>{
-    const s=parseDate(p.start), f=parseDate(p.finish);
-    if(!s||!f) return 0;
-    return Math.max(1, Math.round((f - s) / 86400000));
-  });
-  if(projectDurationChart) projectDurationChart.destroy();
-  projectDurationChart = new Chart(document.getElementById('projectDurationChart'), { type:'bar', data:{labels:projLabels, datasets:[{label:'Days', data:projDur}]}, options:{plugins:{legend:{display:false}}} });
-}
-
-/* --------------------------
-  SHORTAGE calculation (1-6 months)
-----------------------------*/
-function computeShortage(months=1){
-  // For simplicity: compute requirements that start within next `months` months window from today,
-  // grouped by craft. Compare with available manpower counts (who are join<=futureDate && release>=futureDate)
-  const now = new Date();
-  const future = new Date();
-  future.setMonth(future.getMonth() + months);
-  const reqByCraft = {};
-  state.projects.forEach(p=>{
-    p.requirements.forEach(r=>{
-      // consider each phase (main,pre,post)
-      [['Main',r.main], ['Pre',r.pre], ['Post',r.post]].forEach(([label,block])=>{
-        if(!block || !block.craft) return;
-        const s = parseDate(block.start), f = parseDate(block.finish);
-        if(!s || !f) return;
-        // include requirement if its period intersects with [now, future]
-        if(f < now || s > future) return;
-        reqByCraft[block.craft] = (reqByCraft[block.craft]||0) + Number(block.qty||0);
+  function renderShortage(){
+    let html=`<table class="min-w-full border text-xs"><thead class="bg-gray-100">
+    <tr>
+      <th class="border p-1">Project</th><th class="border p-1">Craft</th><th class="border p-1">Available</th><th class="border p-1">Peak Requirement</th>
+      <th class="border p-1">Shortage</th><th class="border p-1">From</th><th class="border p-1">To</th>
+    </tr></thead><tbody>`;
+    
+    projects.forEach(p=>{
+      if(!p.requirements) return;
+      p.requirements.forEach(r=>{
+        let avail = manpower.filter(m=>m.craft===r.craft).length;
+        let shortage = r.qty - avail;
+        if(shortage>0){
+          html+=`<tr>
+          <td class="border p-1">${p.name}</td><td class="border p-1">${r.craft}</td><td class="border p-1">${avail}</td>
+          <td class="border p-1">${r.qty}</td><td class="border p-1">${shortage}</td>
+          <td class="border p-1">${r.start}</td><td class="border p-1">${r.finish}</td>
+          </tr>`;
+        }
       });
     });
-  });
-  // count available manpower in that window (we'll count all whose join <= future and release >= now)
-  const availByCraft = {};
-  state.manpower.forEach(m=>{
-    const join = parseDate(m.join), release = parseDate(m.release);
-    if(!join || !release) return;
-    if(join <= future && release >= now){
-      const c = (m.craft||'').trim()||'Unknown';
-      availByCraft[c] = (availByCraft[c]||0)+1;
-    }
-  });
 
-  // produce rows: craft, required, available, shortage (required - available)
-  const crafts = Array.from(new Set([...Object.keys(reqByCraft), ...Object.keys(availByCraft)]));
-  const rows = crafts.map(c=>{
-    const req = reqByCraft[c]||0;
-    const av = availByCraft[c]||0;
-    return { craft:c, required:req, available:av, shortage: Math.max(0, req - av) };
-  });
-  return rows;
-}
+    html+='</tbody></table>';
+    document.getElementById('shortageTable').innerHTML=html;
+  }
 
-function renderShortage(){
-  const months = Number(document.getElementById('shortageDuration').value || 1);
-  const rows = computeShortage(months);
-  const div = document.getElementById('shortageTable');
-  div.innerHTML = '';
-  if(rows.length===0){ div.innerHTML = '<div class="p-2 text-sm text-gray-500">No data in this window.</div>'; return; }
-  const table = document.createElement('table'); table.className='w-full text-sm';
-  table.innerHTML = `<thead class="text-left text-xs text-gray-500"><tr><th>Craft</th><th>Required</th><th>Available</th><th>Shortage</th></tr></thead>`;
-  const tbody = document.createElement('tbody');
-  rows.forEach(r=>{
-    const tr = document.createElement('tr');
-    tr.innerHTML = `<td class="py-1">${r.craft}</td><td class="py-1">${r.required}</td><td class="py-1">${r.available}</td><td class="py-1">${r.shortage}</td>`;
-    tbody.appendChild(tr);
-  });
-  table.appendChild(tbody);
-  div.appendChild(table);
-}
+  function updateDashboardCharts(){
+    // Craft-wise
+    const craftMap={};
+    manpower.forEach(m=>craftMap[m.craft]= (craftMap[m.craft]||0)+1);
+    const craftLabels=Object.keys(craftMap);
+    const craftData=Object.values(craftMap);
+    new Chart(document.getElementById('craftChart'),{
+      type:'bar',data:{labels:craftLabels,datasets:[{label:'Manpower',data:craftData,backgroundColor:'#4f46e5'}]}
+    });
 
-/* Export shortage (SheetJS) */
-function exportShortageSheet(){
-  const months = Number(document.getElementById('shortageDuration').value || 1);
-  const rows = computeShortage(months).map(r=>({Craft:r.craft, Required:r.required, Available:r.available, Shortage:r.shortage}));
-  if(rows.length===0){ alert('No shortage data to export.'); return; }
-  const wb = XLSX.utils.book_new();
-  const ws = XLSX.utils.json_to_sheet(rows);
-  XLSX.utils.book_append_sheet(wb, ws, 'Shortage');
-  XLSX.writeFile(wb, `Shortage_${months}m.xlsx`);
-}
+    // Peak per Project
+    const projLabels=projects.map(p=>p.name);
+    const peakData=projects.map(p=>p.requirements?p.requirements.reduce((a,r)=>a+r.qty,0):0);
+    new Chart(document.getElementById('projectPeakChart'),{
+      type:'bar',data:{labels:projLabels,datasets:[{label:'Peak Requirement',data:peakData,backgroundColor:'#fb923c'}]}
+    });
 
-/* --------------------------
-  EXPORTS: manpower & projects
-----------------------------*/
-document.getElementById('exportManpowerBtn').addEventListener('click', ()=> exportManpower());
-function exportManpower(){
-  if(state.manpower.length===0){ alert('No manpower to export'); return; }
-  const ws = XLSX.utils.json_to_sheet(state.manpower.map(m=>({
-    id:m.id,name:m.name,craft:m.craft,badge:m.badge,company:m.company,join:m.join,release:m.release,vacationStart:m.vacationStart||'',vacationEnd:m.vacationEnd||''
-  })));
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, 'Manpower');
-  XLSX.writeFile(wb, 'Manpower.xlsx');
-}
+    // Project Duration
+    const durData=projects.map(p=>{
+      const start=new Date(p.start),finish=new Date(p.finish);
+      return Math.max(0,Math.round((finish-start)/(1000*60*60*24)));
+    });
+    new Chart(document.getElementById('projectDurationChart'),{
+      type:'bar',data:{labels:projLabels,datasets:[{label:'Duration (days)',data:durData,backgroundColor:'#16a34a'}]}
+    });
 
-document.getElementById('exportProjectsBtn').addEventListener('click', ()=> exportProjects());
-function exportProjects(){
-  if(state.projects.length===0){ alert('No projects to export'); return; }
-  const rows = state.projects.map(p=>({
-    id:p.id, name:p.name, dept:p.dept, costCenter:p.costCenter, start:p.start, finish:p.finish,
-    requirements: p.requirements.map(r=>`Main:${r.main.craft}(${r.main.qty})[${r.main.start}->${r.main.finish}] Pre:${(r.pre.craft||'-')}(${r.pre.qty}) Post:${(r.post.craft||'-')}(${r.post.qty})`).join(' | ')
-  }));
-  const wb = XLSX.utils.book_new();
-  const ws = XLSX.utils.json_to_sheet(rows);
-  XLSX.utils.book_append_sheet(wb, ws, 'Projects');
-  XLSX.writeFile(wb, 'Projects.xlsx');
-}
+    const totalPeak = peakData.reduce((a,b)=>a+b,0);
+    document.getElementById('totalPeak').innerText=totalPeak;
+  }
 
-/* direct export buttons mapped */
-document.getElementById('exportShortageBtn').addEventListener('click', ()=> exportShortageSheet());
-document.getElementById('exportShortageBtn2').addEventListener('click', ()=> exportShortageSheet());
+  // ---------- Add / Import ----------
+  document.getElementById('addMpBtn').onclick=()=>{
+    const m={
+      name:document.getElementById('mpName').value,
+      craft:document.getElementById('mpCraft').value,
+      badge:document.getElementById('mpBadge').value,
+      company:document.getElementById('mpCompany').value,
+      join:document.getElementById('mpJoin').value,
+      release:document.getElementById('mpRelease').value,
+      vacationStart:document.getElementById('mpVacationStart').value,
+      vacationEnd:document.getElementById('mpVacationEnd').value
+    };
+    manpower.push(m);
+    renderManpower(); renderShortage(); updateDashboardCharts();
+  };
+  document.getElementById('addProjBtn').onclick=()=>{
+    const p={
+      name:document.getElementById('projName').value,
+      dept:document.getElementById('projDept').value,
+      costCenter:document.getElementById('projCostCenter').value,
+      start:document.getElementById('projStart').value,
+      finish:document.getElementById('projFinish').value,
+      requirements:[
+        {craft:document.getElementById('reqMainCraft').value,qty:+document.getElementById('reqMainQty').value,start:document.getElementById('reqMainStart').value,finish:document.getElementById('reqMainFinish').value},
+        {craft:document.getElementById('reqPreCraft').value,qty:+document.getElementById('reqPreQty').value,start:document.getElementById('reqPreStart').value,finish:document.getElementById('reqPreFinish').value},
+        {craft:document.getElementById('reqPostCraft').value,qty:+document.getElementById('reqPostQty').value,start:document.getElementById('reqPostStart').value,finish:document.getElementById('reqPostFinish').value}
+      ]
+    };
+    projects.push(p);
+    renderProjects(); renderShortage(); updateDashboardCharts();
+  };
 
-/* --------------------------
-  IMPORTS: rebindings done earlier
-----------------------------*/
-
-/* --------------------------
-  INIT rendering & handlers
-----------------------------*/
-renderManpower();
-renderProjects();
-renderReqList();
-renderAssignments = renderAssignments || (()=>{}); // placeholder
-updateDashboard();
-renderShortage();
-document.getElementById('shortageDuration').addEventListener('change', renderShortage);
-
-// wire compute assignments button created earlier (already bound)
-document.getElementById('mpImportFile').addEventListener('change', ()=>{/* file chosen */});
-document.getElementById('projImportFile').addEventListener('change', ()=>{/* file chosen */});
-
-/* Ensure UI reflects saved assignments if any */
-if(state.assignments && state.assignments.length>0) renderAssignments();
-
-/* Optional: small help */
-document.getElementById('helpBtn').addEventListener('click', ()=>{
-  alert('This is a Manpower Assignment tool.\n\n- Use "Manpower" and "Projects" tabs to add/import records.\n- Add requirements (Pre/TA/Post) for each projects.\n- Go to AI Scheduler and click "Compute Assignments" to run a demo assignment.\n- Use Reports tab to export data.');
-});
+  // Initial render
+  renderManpower(); renderProjects(); renderShortage(); updateDashboardCharts();
 </script>
+
 </body>
 </html>
