@@ -1,0 +1,23 @@
+/* Base colors */
+:root {
+  --indigo-900: #1e2a5c;
+  --orange-500: #ff8a00;
+}
+
+/* Override Bootstrap defaults for dark theme */
+.bg-indigo-900 { background-color: var(--indigo-900); }
+.text-white   { color:#fff; }
+
+.btn-orange { background-color: var(--orange-500); border:none; }
+.btn-orange:hover{ background-color:#e07c00; }
+
+.modal-content { background-color: #2a3d6b; }
+
+/* Craft requirement table */
+#craftReqTable input, #craftReqTable select {
+  background-color: #4a5f90;
+  color:#fff;
+}
+
+/* Dashboard charts container */
+canvas{background:#222;border-radius:8px;}
